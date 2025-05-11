@@ -58,19 +58,19 @@ def play():
         if player.turn:
             input("Enter to make a dice roll :")
             player.last_dice_roll = dice_roll()
-            print(player.last_dice_roll)
+            print("Your roll :", player.last_dice_roll)
 
-            # Handle other things below
+            print("Possible sets :", possible_sets(player.last_dice_roll))
+
 
 
             change_turn(player, computer_player)
 
-            player_played = True
-
+        # If the turn is to the computer
         elif computer_player.turn:
             print("Your computer is playing...")
             computer_player.last_dice_roll = dice_roll()
-            print(computer_player.last_dice_roll)
+            print("Computer roll :", computer_player.last_dice_roll)
 
             # Handle other things below 
 
