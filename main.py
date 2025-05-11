@@ -27,6 +27,7 @@ def play():
     computer_set_container = SetContainer()
 
 
+
     # Determine if the player or the computer play first
     print("Rolling dice to determine who begins...")
     computer_roll = dice_roll()

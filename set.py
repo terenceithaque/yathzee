@@ -21,3 +21,10 @@ class SetContainer:
             "yathzee" : 0,
             "chance" : 0
         }
+
+    def get_sum(self) -> int:
+        """Returns the sum of all set scores"""
+
+        # Iterate over the values of the content and return their sum
+        return sum(self.content.values())
+
