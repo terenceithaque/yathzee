@@ -15,3 +15,6 @@ class Player:
 
         # List for the last dice roll the player did
         self.last_dice_roll = []
+
+        # Total score
+        self.total_score = 0

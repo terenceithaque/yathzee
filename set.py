@@ -55,3 +55,13 @@ class SetContainer:
         self.content[dice_set] = score
 
 
+    def is_complete(self) -> bool:
+        "Returns True if all the sets were completed, and False if not. The ignored sets are skipped."
+
+        # Skip the ignored sets
+        dice_sets = [dice_set for dice_set in self.content.keys() if self.content[dice_set] != "ignored"]
+
+        return all([self.content[dice_set] > 0 for dice_set in dice_sets])
+
+
+

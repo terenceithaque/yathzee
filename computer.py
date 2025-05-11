@@ -16,3 +16,7 @@ class ComputerPlayer:
 
         # List containing the last dice roll the computer did
         self.last_dice_roll = []
+
+
+        # Total score
+        self.total_score = 0
