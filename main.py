@@ -54,8 +54,7 @@ def play():
     while not (player.set_container.is_complete() and computer_player.set_container.is_complete()):
         # If the turn is to the player
 
-        player_played = False
-        computer_played = False
+    
         if player.turn:
             input("Enter to make a dice roll :")
             player.last_dice_roll = dice_roll()
@@ -68,7 +67,7 @@ def play():
 
             player_played = True
 
-        elif computer_player.turn and not computer_played:
+        elif computer_player.turn:
             print("Your computer is playing...")
             computer_player.last_dice_roll = dice_roll()
             print(computer_player.last_dice_roll)
@@ -78,7 +77,7 @@ def play():
 
             change_turn(player, computer_player)
 
-            computer_played = True       
+            #computer_played = True       
 
 
 
