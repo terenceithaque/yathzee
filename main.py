@@ -1,6 +1,7 @@
 "main game file"
 from dice import *
 from turn import *
+from set import *
 
 
 
@@ -18,6 +19,13 @@ def play():
     # Dice roll list for the player and the computer
     player_roll = []
     computer_roll =  []
+
+
+    # Set containers for the player and the computer
+    player_set_container = SetContainer()
+
+    computer_set_container = SetContainer()
+
 
     # Determine if the player or the computer play first
     print("Rolling dice to determine who begins...")
