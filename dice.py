@@ -12,3 +12,16 @@ def new_dice(dice_list:list) -> int:
     dice_list.append(dice)
 
     return dice
+
+
+def dice_roll() -> list:
+    """Simulates a dice roll and returns the corresponding dice list"""
+    roll =  []
+
+    # Generate five dice with a random value and add them to the roll list
+
+    for _ in range(5):
+        new_dice(roll)
+
+    # Return the dice roll
+    return roll    
