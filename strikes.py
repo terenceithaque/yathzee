@@ -1,1 +1,136 @@
 "strikes.py handles functions to count probable scores for each dice set."
+from dice import *
+
+def count_aces(dice_list:list) -> int:
+    """Count the possible score for an aces according to the given dice list"""
+
+    # Count the number of dice with value "1"
+    occurences_1 = occurences(dice_list, 1)
+
+    # The possible score is the total of occurences
+    score = occurences_1
+
+    return score
+
+def count_twos(dice_list:list) -> int:
+    """Count the possible score for a twos according to the given dice list"""
+
+    # Count the number of dice with value "2"
+    occurences_2 = occurences(dice_list, 2)
+
+    # The possible score 2 * occurences_2
+    score = 2 * occurences_2
+
+    return score
+
+
+def count_threes(dice_list:list) -> int:
+    """Count the possible score for a threes according to the given dice list"""
+
+    # Count the number of dice with value "3"
+    occurences_3 = occurences(dice_list, 3)
+
+    # The possible score 3 * occurences_3
+    score = 3 * occurences_3
+
+    return score
+
+
+def count_fours(dice_list:list) -> int:
+    """Count the possible score for a fours according to the given dice list"""
+
+    # Count the number of dice with value "4"
+    occurences_4 = occurences(dice_list, 4)
+
+    # The possible score 4 * occurences_4
+    score = 4 * occurences_4
+
+    return score
+
+def count_fives(dice_list:list) -> int:
+    """Count the possible score for a fives according to the given dice list"""
+
+    # Count the number of dice with value "5"
+    occurences_5 = occurences(dice_list, 5)
+
+    # The possible score 5 * occurences_5
+    score = 5 * occurences_5
+
+    return score
+
+
+def count_sixes(dice_list:list) -> int:
+    """Count the possible score for a sixes according to the given dice list"""
+
+    # Count the number of dice with value "6"
+    occurences_6 = occurences(dice_list, 6)
+
+    # The possible score 6 * occurences_6
+    score = 6 * occurences_6
+
+    return score
+
+
+def count_3kind(dice_list:list) -> int:
+    """Count the most optimistic score for a 3kind"""
+
+    # Take into account only the dice values with 3 occurences
+    dice_values = [dice_value for dice_value in dice_list if occurences(dice_list, dice_value) == 3]
+
+    # Get only the best dice value available
+    best_dice_value = max(dice_values)
+
+    other_dice_values = [dice_val for dice_val in dice_list if dice_val != best_dice_value]
+
+    score = (3 * best_dice_value) + sum(other_dice_values)
+
+    return score 
+
+
+def count_4kind(dice_list:list) -> int:
+    """Count the most optimistic score for a 4kind"""
+
+    # Take into account only the dice values with 4 occurences
+    dice_values = [dice_value for dice_value in dice_list if occurences(dice_list, dice_value) == 4]
+
+    # Get only the best dice value available
+    best_dice_value = max(dice_values)
+
+    other_dice_values = [dice_val for dice_val in dice_list if dice_val != best_dice_value]
+
+    score = (4 * best_dice_value) + sum(other_dice_values)
+
+    return score
+
+
+def count_fullhouse() -> int:
+    "Count the score for a fullhouse"
+
+    # A fullhouse counts for 25 points
+    return 25
+
+
+def count_smstraight() -> int:
+    "Count the score for a small straight"
+
+    # A small straight counts for 30 points
+    return 30
+
+def count_lgstraight() -> int:
+    "Count the score for a large straight"
+
+    # A large straight counts for 40 points
+    return 40
+
+
+def count_yathzee() -> int:
+    "Count the score for a Yathzee"
+
+    # A Yathzee counts for 50 points
+    return 50
+
+
+def count_chance(dice_list) -> int:
+    "Count the score for a chance"
+
+    return sum(dice_list)
