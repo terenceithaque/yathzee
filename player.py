@@ -18,3 +18,5 @@ class Player:
 
         # Total score
         self.total_score = 0
+
+        self.possible_sets =  {}

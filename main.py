@@ -77,7 +77,10 @@ def play():
             player.last_dice_roll = dice_roll(5, [])
             print("Your roll :", player.last_dice_roll)
 
-            print("Possible sets :", possible_sets(player.last_dice_roll))
+            # Get the possible sets for the current dice roll
+            player.possible_sets = possible_sets(player.last_dice_roll)
+
+            print("Possible sets :", player.possible_sets)
 
 
             # The player can reroll two times max
@@ -85,9 +88,10 @@ def play():
 
             # Ask the player if he wants to reroll his dice 
             while  max_rerolls > 0:
-                # Ask which dice values should be keeped
-
+                
+                # If the player wants to reroll
                 if ask_reroll():
+                    # Ask which dice values should be keeped
                     keep_values = input("Enter the dice values you want to keep, separated by a comma :")
                     # Check if the values aren't separated by a comma, and re-ask if that is the case
                     while not keep_values.split(","):
@@ -120,16 +124,15 @@ def play():
 
 
                     player.last_dice_roll = final_dice
+
+                    player.possible_sets = possible_sets(final_dice)
                     print("New dice roll :", player.last_dice_roll)
+                    print("Possible sets :", player.possible_sets)
                     max_rerolls -= 1
 
-
+                # End the loop if he doesn't want to reroll
                 else:
                     break    
-
-
-                # Continue here
-
 
 
 
