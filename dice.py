@@ -71,5 +71,22 @@ def possible_sets(dice_list:list) -> dict:
 
 
 
+def occurences(dice_list:list, dice_val:int) -> int:
+    """Returns the number of occurences for the given dice value"""
+    return dice_list.count(dice_val)
+
+
+def all_dice_occurences(dice_list:list) -> dict:
+    """Counts occurences for each dice in the dice list and returns a dict {dice_val: occurences}"""
+
+    occurences = {}
+
+    for dice_val in dice_list:
+        occurences[dice_val] = dice_list.count(dice_val)
+
+    return occurences    
+
+
+
 
 

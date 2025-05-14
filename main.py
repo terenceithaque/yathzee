@@ -7,7 +7,10 @@ from computer import *
 
 
 def ask_reroll() -> bool:
-    """Ask the player if he wants to reroll his dice"""
+    """Ask the player if he wants to reroll his dice.
+    Returns False to keep the current dice roll, or True to reroll."""
+
+
     reroll = input("Keep your current roll or reroll dice (answer 1 or 2): ")
     
     # The answer must be 1 to keep the current dice roll or 2 to reroll
@@ -77,7 +80,61 @@ def play():
             print("Possible sets :", possible_sets(player.last_dice_roll))
 
 
-            ask_reroll()
+            # The player can reroll two times max
+            max_rerolls = 2
+
+            # Ask the player if he wants to reroll his dice 
+            while  max_rerolls > 0:
+                # Ask which dice values should be keeped
+
+                if ask_reroll():
+                    keep_values = input("Enter the dice values you want to keep, separated by a comma :")
+                    # Check if the values aren't separated by a comma, and re-ask if that is the case
+                    while not keep_values.split(","):
+                        keep_values = input("Enter the dice values you want to keep, separated by a comma :")
+
+                    # The dice values must be 1, 2, 3, 4, 5 or 6
+                    while not all([value in ["1", "2", "3", "4", "5", "6"]] for value in keep_values.split(",")):
+                        keep_values = input("Enter the dice values you want to keep, separated by a comma :")
+                    
+                    keep_values = [int(value) for value in keep_values.split(",")]
+
+
+                    n_dice = input("Number of dice to reroll :")
+                    while n_dice not in ["1", "2", "3", "4", "5"]:
+                        n_dice = input("Number of dice to reroll :")
+
+                    n_dice = int(n_dice)
+
+                    rerolled_dice = dice_roll(n_dice, keep_values)
+                    
+                    final_dice = []
+
+                    # Add kept dice values to the final dice list
+                    for dice_val in player.last_dice_roll:
+                        if dice_val in keep_values:
+                            final_dice.append(dice_val)
+
+                    # Add the new rerolled dice to the final dice list
+                    final_dice.extend(rerolled_dice)
+
+
+                    player.last_dice_roll = final_dice
+                    print("New dice roll :", player.last_dice_roll)
+                    max_rerolls -= 1
+
+
+                else:
+                    break    
+
+
+                # Continue here
+
+
+
+
+
+
 
 
 
