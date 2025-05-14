@@ -6,6 +6,20 @@ from player import *
 from computer import *
 
 
+def ask_reroll() -> bool:
+    """Ask the player if he wants to reroll his dice"""
+    reroll = input("Keep your current roll or reroll dice (answer 1 or 2): ")
+    
+    # The answer must be 1 to keep the current dice roll or 2 to reroll
+    while reroll not in ["1", "2"]:
+        reroll = input("Keep your current roll or reroll dice (answer 1 or 2): ")
+
+    if reroll == "1":
+        return False
+
+    else:
+        return True    
+
 
 
 
@@ -61,6 +75,9 @@ def play():
             print("Your roll :", player.last_dice_roll)
 
             print("Possible sets :", possible_sets(player.last_dice_roll))
+
+
+            ask_reroll()
 
 
 
