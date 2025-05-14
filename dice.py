@@ -18,14 +18,23 @@ def new_dice(dice_list:list) -> int:
     return dice
 
 
-def dice_roll() -> list:
-    """Simulates a dice roll and returns the corresponding dice list"""
+def dice_roll(n_dice=5, ignore_values=[]) -> list:
+    """Simulates a dice roll and returns the corresponding dice list.
+    n_dice : The number of dice to be rolled
+    ignore_values: list of dice values not to be generated"""
     roll =  []
 
-    # Generate five dice with a random value and add them to the roll list
+    # Generate n_dice dice with a random value and add them to the roll list
 
-    for _ in range(5):
+    for _ in range(n_dice):
         dice = new_dice(roll)
+
+        # Ensure the dice is not in the values to be ignored
+        while dice in ignore_values:
+            # Regenerate the dice
+            dice = new_dice(roll)
+
+            
         roll.append(dice)
 
     # Return the dice roll

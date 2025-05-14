@@ -27,8 +27,8 @@ def play():
 
     # Determine if the player or the computer play first
     print("Rolling dice to determine who begins...")
-    computer_player.last_dice_roll= dice_roll()
-    player.last_dice_roll = dice_roll()
+    computer_player.last_dice_roll= dice_roll(5, [])
+    player.last_dice_roll = dice_roll(5, [])
     
 
     # Get the beginner
@@ -54,10 +54,10 @@ def play():
     while not (player.set_container.is_complete() and computer_player.set_container.is_complete()):
         # If the turn is to the player
 
-    
+        print()
         if player.turn:
             input("Enter to make a dice roll :")
-            player.last_dice_roll = dice_roll()
+            player.last_dice_roll = dice_roll(5, [])
             print("Your roll :", player.last_dice_roll)
 
             print("Possible sets :", possible_sets(player.last_dice_roll))
@@ -69,7 +69,7 @@ def play():
         # If the turn is to the computer
         elif computer_player.turn:
             print("Your computer is playing...")
-            computer_player.last_dice_roll = dice_roll()
+            computer_player.last_dice_roll = dice_roll(5, [])
             print("Computer roll :", computer_player.last_dice_roll)
 
             # Handle other things below 
