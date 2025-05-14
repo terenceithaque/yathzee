@@ -2,6 +2,7 @@
 from set import *
 from turn import *
 from dice import *
+from strikes import *
 
 class Player:
     def __init__(self):

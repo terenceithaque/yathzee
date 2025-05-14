@@ -32,6 +32,12 @@ class SetContainer:
         # Iterate over the values of the content and return their sum
         return sum(self.content_values)
     
+
+    def remaining_sets(self):
+        """Returns a list of the remaining sets to be done (those with score 0)."""
+        remaining = [dice_set for dice_set in self.content.keys() if self.content[dice_set] == 0]
+        return remaining
+    
     def ignore(self, dice_set:str):
         "Defines a dice set as ignored (not equal to 0 in score but simply to be skipped)"
 

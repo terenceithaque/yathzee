@@ -2,6 +2,7 @@
 from set import *
 from turn import *
 from dice import *
+from strikes import *
 
 
 class ComputerPlayer:
@@ -20,5 +21,8 @@ class ComputerPlayer:
 
         # Total score
         self.total_score = 0
+
+        self.remaining_sets = self.set_container.remaining_sets()
+    
 
         

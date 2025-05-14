@@ -71,36 +71,20 @@ def count_sixes(dice_list:list) -> int:
     return score
 
 
-def count_3kind(dice_list:list) -> int:
-    """Count the most optimistic score for a 3kind"""
-
-    # Take into account only the dice values with 3 occurences
-    dice_values = [dice_value for dice_value in dice_list if occurences(dice_list, dice_value) == 3]
-
-    # Get only the best dice value available
-    best_dice_value = max(dice_values)
-
-    other_dice_values = [dice_val for dice_val in dice_list if dice_val != best_dice_value]
-
-    score = (3 * best_dice_value) + sum(other_dice_values)
-
-    return score 
+def count_3kind(dice_list: list) -> int:
+    """Count the score for a 3-of-a-kind, summing all dice if valid, else 0"""
+    for dice_value in set(dice_list):
+        if occurences(dice_list, dice_value) >= 3:
+            return sum(dice_list)
+    return 0
 
 
-def count_4kind(dice_list:list) -> int:
-    """Count the most optimistic score for a 4kind"""
-
-    # Take into account only the dice values with 4 occurences
-    dice_values = [dice_value for dice_value in dice_list if occurences(dice_list, dice_value) == 4]
-
-    # Get only the best dice value available
-    best_dice_value = max(dice_values)
-
-    other_dice_values = [dice_val for dice_val in dice_list if dice_val != best_dice_value]
-
-    score = (4 * best_dice_value) + sum(other_dice_values)
-
-    return score
+def count_4kind(dice_list: list) -> int:
+    """Count the score for a 4-of-a-kind, summing all dice if valid, else 0"""
+    for dice_value in set(dice_list):
+        if occurences(dice_list, dice_value) >= 4:
+            return sum(dice_list)
+    return 0
 
 
 def count_fullhouse() -> int:

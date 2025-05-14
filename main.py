@@ -149,6 +149,9 @@ def play():
             computer_player.last_dice_roll = dice_roll(5, [])
             print("Computer roll :", computer_player.last_dice_roll)
 
+
+            print("Remaining sets for the computer :", computer_player.remaining_sets)
+
             # Handle other things below 
 
 
