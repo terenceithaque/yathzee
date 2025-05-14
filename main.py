@@ -83,6 +83,9 @@ def play():
             print("Possible sets :", player.possible_sets)
 
 
+            print("Your remaining sets :", player.remaining_sets)
+
+
             # The player can reroll two times max
             max_rerolls = 2
 
@@ -91,48 +94,21 @@ def play():
                 
                 # If the player wants to reroll
                 if ask_reroll():
-                    # Ask which dice values should be keeped
-                    keep_values = input("Enter the dice values you want to keep, separated by a comma :")
-                    # Check if the values aren't separated by a comma, and re-ask if that is the case
-                    while not keep_values.split(","):
-                        keep_values = input("Enter the dice values you want to keep, separated by a comma :")
 
-                    # The dice values must be 1, 2, 3, 4, 5 or 6
-                    while not all([value in ["1", "2", "3", "4", "5", "6"]] for value in keep_values.split(",")):
-                        keep_values = input("Enter the dice values you want to keep, separated by a comma :")
-                    
-                    keep_values = [int(value) for value in keep_values.split(",")]
-
-
-                    n_dice = input("Number of dice to reroll :")
-                    while n_dice not in ["1", "2", "3", "4", "5"]:
-                        n_dice = input("Number of dice to reroll :")
-
-                    n_dice = int(n_dice)
-
-                    rerolled_dice = dice_roll(n_dice, keep_values)
-                    
-                    final_dice = []
-
-                    # Add kept dice values to the final dice list
-                    for dice_val in player.last_dice_roll:
-                        if dice_val in keep_values:
-                            final_dice.append(dice_val)
-
-                    # Add the new rerolled dice to the final dice list
-                    final_dice.extend(rerolled_dice)
-
-
-                    player.last_dice_roll = final_dice
-
-                    player.possible_sets = possible_sets(final_dice)
-                    print("New dice roll :", player.last_dice_roll)
-                    print("Possible sets :", player.possible_sets)
+                    player.reroll_dice()                    
                     max_rerolls -= 1
 
                 # End the loop if he doesn't want to reroll
                 else:
-                    break    
+                    break
+
+
+                player.update_remaining_sets()
+
+
+            # If the player has several sets  to do
+            if len(player.remaining_sets) > 1:
+                print(f"You must choose between {list(player.possible_sets.keys())}.")       
 
 
 

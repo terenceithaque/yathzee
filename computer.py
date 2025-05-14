@@ -24,5 +24,7 @@ class ComputerPlayer:
 
         self.remaining_sets = self.set_container.remaining_sets()
     
+        
+    
 
         
