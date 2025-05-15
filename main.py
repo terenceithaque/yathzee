@@ -108,7 +108,11 @@ def play():
 
             # If the player has several sets  to do
             if len(player.remaining_sets) > 1:
-                print(f"You must choose between {list(player.possible_sets.keys())}.")       
+                print(f"You must choose between {list(player.possible_sets.keys())}.")
+                # Ask the player which dice set he wants to complete
+                dice_set = player.ask_set()
+                
+                       
 
 
 

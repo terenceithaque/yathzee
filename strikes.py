@@ -118,3 +118,26 @@ def count_chance(dice_list) -> int:
     "Count the score for a chance"
 
     return sum(dice_list)
+
+
+def summarize_potential_scores(dice_set:list) -> dict:
+    """Summarize into a dictionnary the potential scores doable with the given dice set."""
+
+    # Dict summary
+    summary = {
+        "aces": count_aces(dice_set),
+        "twos": count_twos(dice_set),
+        "threes": count_threes(dice_set),
+        "fours": count_fours(dice_set),
+        "fives": count_fives(dice_set),
+        "sixes": count_sixes(dice_set),
+        "3kind": count_3kind(dice_set),
+        "4kind": count_4kind(dice_set),
+        "fullhouse": count_fullhouse(dice_set),
+        "sm-straight": count_smstraight(dice_set),
+        "lg-straight": count_lgstraight(dice_set),
+        "yathzee": count_yathzee(),
+        "chance": count_chance(dice_set)
+    }
+
+    return summary

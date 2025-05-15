@@ -69,3 +69,23 @@ class Player:
         self.possible_sets = possible_sets(self.last_dice_roll)
         print("New dice roll :", self.last_dice_roll)
         print("Possible sets :", self.possible_sets)
+
+
+    def ask_set(self) -> str:
+        """Ask the player which dice set to complete. Returns the entered dice set."""
+
+        # Ask the player for the name of the set to be completed
+        dice_set = input("Which dice set do you want to complete ? ")
+
+        # Ensure the entered set is always into the remaining sets and that the current dice roll allows to do it
+        while not dice_set in self.remaining_sets and not dice_set in  self.possible_sets:
+            print("The entered dice set is not doable with your current dice roll or you already completed that set.")
+            # Ask the player for the name of the set to be completed
+            dice_set = input("Which dice set do you want to complete ? ")
+
+
+        return dice_set    
+            
+
+
+
