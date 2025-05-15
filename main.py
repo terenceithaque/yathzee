@@ -80,10 +80,10 @@ def play():
             # Get the possible sets for the current dice roll
             player.possible_sets = possible_sets(player.last_dice_roll)
 
-            print("Possible sets :", player.possible_sets)
+            #print("Possible sets :", player.possible_sets)
 
 
-            print("Your remaining sets :", player.remaining_sets)
+            #print("Your remaining sets :", player.remaining_sets)
 
 
             # The player can reroll two times max
@@ -111,7 +111,16 @@ def play():
                 print(f"You must choose between {list(player.possible_sets.keys())}.")
                 # Ask the player which dice set he wants to complete
                 dice_set = player.ask_set()
-                print("Summary of potential scores :", summarize_potential_scores(player.last_dice_roll))
+                # Get a summary of the potential scores and extract the score for the chosen dice set
+                scores_summary = summarize_potential_scores(player.last_dice_roll)
+                score = scores_summary[dice_set]
+
+                # Update the player's set container and the remaining sets
+                player.set_container.update(dice_set, score)
+                player.update_remaining_sets()
+
+                print("Your game :", player.set_container.content)
+
                        
 
 

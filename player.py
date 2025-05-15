@@ -77,11 +77,25 @@ class Player:
         # Ask the player for the name of the set to be completed
         dice_set = input("Which dice set do you want to complete ? ")
 
+        # Ensure the entered dice set is valid
+        while not dice_set in self.set_container.content.keys():
+            print("The entered set is invalid")
+            # Ask the player for the name of the set to be completed
+            dice_set = input("Which dice set do you want to complete ? ")
+
+
         # Ensure the entered set is always into the remaining sets and that the current dice roll allows to do it
         while not dice_set in self.remaining_sets and not dice_set in  self.possible_sets:
             print("The entered dice set is not doable with your current dice roll or you already completed that set.")
             # Ask the player for the name of the set to be completed
             dice_set = input("Which dice set do you want to complete ? ")
+
+
+        # Ensure the player cannot do the same set twice
+        while not self.set_container.content[dice_set] == 0:
+            print("You already did that set.") 
+            # Ask the player for the name of the set to be completed
+            dice_set = input("Which dice set do you want to complete ? ")   
 
 
         return dice_set    
