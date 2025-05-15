@@ -111,7 +111,7 @@ def play():
                 print(f"You must choose between {list(player.possible_sets.keys())}.")
                 # Ask the player which dice set he wants to complete
                 dice_set = player.ask_set()
-                
+                print("Summary of potential scores :", summarize_potential_scores(player.last_dice_roll))
                        
 
 

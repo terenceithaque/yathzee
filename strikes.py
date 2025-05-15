@@ -133,9 +133,9 @@ def summarize_potential_scores(dice_set:list) -> dict:
         "sixes": count_sixes(dice_set),
         "3kind": count_3kind(dice_set),
         "4kind": count_4kind(dice_set),
-        "fullhouse": count_fullhouse(dice_set),
-        "sm-straight": count_smstraight(dice_set),
-        "lg-straight": count_lgstraight(dice_set),
+        "fullhouse": count_fullhouse(),
+        "sm-straight": count_smstraight(),
+        "lg-straight": count_lgstraight(),
         "yathzee": count_yathzee(),
         "chance": count_chance(dice_set)
     }
