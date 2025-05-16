@@ -23,8 +23,16 @@ class ComputerPlayer:
         self.total_score = 0
 
         self.remaining_sets = self.set_container.remaining_sets()
-    
-        
+
+        # Dict to analyze the last strike (get the number of occurences for each dice)
+        self.last_strike_anlyze = {}
+
+    def analyze_strike(self):
+        "Analyze the last strike and updates the last strike analyzing dict"
+        self.last_strike_anlyze = all_dice_occurences(self.last_dice_roll)
+        print("Occurences of all dice :", self.last_strike_anlyze)
+        return self.last_strike_anlyze    
+
     
 
         

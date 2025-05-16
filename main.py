@@ -95,7 +95,7 @@ def play():
                 # If the player wants to reroll
                 if ask_reroll():
 
-                    player.reroll_dice()                    
+                    player.reroll_dice()                  
                     max_rerolls -= 1
 
                 # End the loop if he doesn't want to reroll
@@ -140,6 +140,8 @@ def play():
 
 
             print("Remaining sets for the computer :", computer_player.remaining_sets)
+
+            print(computer_player.analyze_strike())
 
             # Handle other things below 
 
