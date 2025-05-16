@@ -29,7 +29,7 @@ class ComputerPlayer:
         self.possible_sets = {}
 
         # Dict to analyze the last strike (get the number of occurences for each dice)
-        self.last_strike_anlyze = {}
+        self.last_strike_analysis = {}
 
     def analyze_strike(self):
         "Analyze the last strike and updates the last strike analyzing dict"
@@ -50,6 +50,16 @@ class ComputerPlayer:
 
         # Get the dice sets did by the computer
         self.remaining_sets = self.update_remaining_sets()
+
+        # Get possible dice sets
+        self.possible_sets = possible_sets(self.last_dice_roll)
+
+        print("Possible sets for the computer :", self.possible_sets)
+
+        
+
+
+
 
 
 

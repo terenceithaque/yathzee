@@ -3,6 +3,29 @@ import random
 import copy
 
 
+def construct_dice_list(dice_vals:dict) -> list:
+    "Construct a dice list from a dictionnary of dice values and their occurences for each."
+
+    # Assertions
+    assert len(dice_vals) == 5, "The dice_vals dict must have five values"
+    assert all([type(dice_val).__name__ == "int"] for dice_val in dice_vals.keys()), "dice values must be int"
+    assert all([type(occurence).__name__ == "int"] for occurence in dice_vals.values()), "Occurences must be int"
+
+    # Resulting dice list
+    dice_list = []
+
+    # For each dice value in the dict
+    for dice_val in dice_vals.keys():
+        # Add the dice value to the lists by each occurence of it
+        dice_list.extend([dice_val] * dice_vals[dice_val])
+
+
+    return dice_list    
+
+
+
+
+
 def new_dice(dice_list:list) -> int:
     """Generate a random dice value and adds it to the dice list."""
 
