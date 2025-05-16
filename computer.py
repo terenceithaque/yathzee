@@ -33,15 +33,16 @@ class ComputerPlayer:
 
     def analyze_strike(self):
         "Analyze the last strike and updates the last strike analyzing dict"
-        self.last_strike_anlyze = all_dice_occurences(self.last_dice_roll)
-        print("Occurences of all dice :", self.last_strike_anlyze)
-        return self.last_strike_anlyze
+        self.last_strike_analysis = all_dice_occurences(self.last_dice_roll)
+        print("Occurences of all dice :", self.last_strike_analysis)
+        return self.last_strike_anlysis
     
 
     def update_remaining_sets(self) -> list:
         "Update the list of remaining sets for the computer"
         self.remaining_sets = self.set_container.remaining_sets()
-        return self.remaining_sets 
+        return self.remaining_sets
+ 
 
     def decide_strike(self):
         "Decide which is the best strike to do next according to various parameters"
@@ -56,7 +57,17 @@ class ComputerPlayer:
 
         print("Possible sets for the computer :", self.possible_sets)
 
+        # List the most frequent dice values in the last dice roll
+        occurences_values = self.last_strike_analysis.values()
+
+        # We consider that the most frequent values are those with occurences in the superior half
+        frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
+                           if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
+        print("Most frequent values in the last computer roll :", frequent_values)
+
+
+
 
 
 
