@@ -40,7 +40,7 @@ class Player:
                 keep_values = input("Enter the dice values you want to keep, separated by a comma :")
 
         # The dice values must be 1, 2, 3, 4, 5 or 6
-        while not all([value in ["1", "2", "3", "4", "5", "6"]] for value in keep_values.split(",")):
+        while not all([value in ["1", "2", "3", "4", "5", "6"]] for value in keep_values.split(",")) :
                 keep_values = input("Enter the dice values you want to keep, separated by a comma :")
                     
         keep_values = [int(value) for value in keep_values.split(",")]

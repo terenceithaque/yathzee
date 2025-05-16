@@ -22,7 +22,7 @@ def first_turn(player_roll:list, computer_roll:list) -> int:
     # Redo the rolls if they're equal
     while sum(player_roll) == sum(computer_roll):
         player_roll = dice_roll()
-        computer = dice_roll()
+        computer_roll = dice_roll()
 
 
     # If the player has a superior roll sum, then he will begin first
