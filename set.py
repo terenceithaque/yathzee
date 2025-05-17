@@ -1,5 +1,8 @@
 "set.py contains a SetContainer class representing a container for dice sets."
 
+def sets_for_value(dice_val:int) -> list:
+    "Returns a list of sets that might be done with the given dice value"
+    values_sets = {}
 
 class SetContainer:
     

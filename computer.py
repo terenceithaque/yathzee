@@ -35,7 +35,7 @@ class ComputerPlayer:
         "Analyze the last strike and updates the last strike analyzing dict"
         self.last_strike_analysis = all_dice_occurences(self.last_dice_roll)
         print("Occurences of all dice :", self.last_strike_analysis)
-        return self.last_strike_anlysis
+        return self.last_strike_analysis
     
 
     def update_remaining_sets(self) -> list:
@@ -65,6 +65,7 @@ class ComputerPlayer:
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
         print("Most frequent values in the last computer roll :", frequent_values)
+        
 
 
 
