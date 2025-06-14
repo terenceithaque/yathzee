@@ -2,7 +2,21 @@
 
 def sets_for_value(dice_val:int) -> list:
     "Returns a list of sets that might be done with the given dice value"
-    values_sets = {}
+
+    assert dice_val in range(1, 7), "Dice value must be between 1 and 6 included"
+
+    values_sets = {
+        1: ["aces", "3kind", "4kind", "fullhouse", "sm-straight", "lg-straight", "yathzee", "chance"],
+        2: ["twos", "3kind", "4kind", "fullhouse", "sm-straight", "lg-straight", "yathzee", "chance"],
+        3: ["threes", "3kind", "4kind", "fullhouse", "sm-straight", "lg-straight", "yathzee", "chance"],
+        4: ["fours", "3kind", "4kind", "fullhouse", "sm-straight", "lg-straight", "yathzee", "chance"],
+        5: ["fives", "3kind", "4kind", "fullhouse", "sm-straight", "lg-straight", "yathzee", "chance"],
+        6: ["sixes", "3kind", "4kind", "fullhouse", "sm-straight", "lg-straight", "yathzee", "chance"] 
+    }
+
+    return values_sets[dice_val]
+
+    
 
 class SetContainer:
     

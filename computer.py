@@ -37,6 +37,18 @@ class ComputerPlayer:
         print("Occurences of all dice :", self.last_strike_analysis)
         return self.last_strike_analysis
     
+    def get_most_frequent_val(self):
+        "Returns the value with the highest number of occurencies in the last strike. Retunrs the lowest value if no result match."
+        dice_vals = [dice_val for dice_val in self.last_strike_analysis.keys()]
+        most_frequent = min(dice_vals)
+
+        for dice_val in dice_vals:
+            if self.last_strike_analysis[dice_val] == max(self.last_strike_analysis.values()):
+                most_frequent = dice_val
+
+        return most_frequent        
+
+    
 
     def update_remaining_sets(self) -> list:
         "Update the list of remaining sets for the computer"
@@ -65,7 +77,9 @@ class ComputerPlayer:
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
         print("Most frequent values in the last computer roll :", frequent_values)
-        
+        # Calculate possible sets for the most frequent value
+        most_freq_val = self.get_most_frequent_val()
+        print("Most frequent value :", most_freq_val)
 
 
 
