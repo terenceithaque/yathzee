@@ -77,9 +77,15 @@ class ComputerPlayer:
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
         print("Most frequent values in the last computer roll :", frequent_values)
-        # Calculate possible sets for the most frequent value
-        most_freq_val = self.get_most_frequent_val()
-        print("Most frequent value :", most_freq_val)
+        # Count the potential scores for the most frequent values
+        potential_scores = summarize_potential_scores(self.last_dice_roll)
+
+        
+        potential_scores = {value:score for value, score in zip(frequent_values, potential_scores.values())}
+        print("Potential scores :", potential_scores)
+
+            
+
 
 
 
