@@ -93,7 +93,8 @@ class ComputerPlayer:
 
         print("Potential sets for the most frequent values :", filtered_sets)
 
-        
+        max_score_set = get_max_potential_score_set(self.last_dice_roll)
+        print("Set with max potential score :", max_score_set)
 
 
 
