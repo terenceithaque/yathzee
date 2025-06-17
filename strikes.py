@@ -120,6 +120,11 @@ def count_chance(dice_list) -> int:
     return sum(dice_list)
 
 
+def get_max_potential_score(dice_set:list) -> str:
+    "Returns the name of the set that returns a max score for a dice set"
+    
+
+
 def summarize_potential_scores(dice_set:list) -> dict:
     """Summarize into a dictionnary the potential scores doable with the given dice set."""
 

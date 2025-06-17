@@ -58,6 +58,9 @@ class ComputerPlayer:
 
     def decide_strike(self):
         "Decide which is the best strike to do next according to various parameters"
+
+        strike = "" # Next set to do
+
         # Analyze the last strike
         self.last_strike_analysis = self.analyze_strike()
 
@@ -89,6 +92,10 @@ class ComputerPlayer:
                 filtered_sets.append(dice_set)
 
         print("Potential sets for the most frequent values :", filtered_sets)
+
+        
+
+
 
 
 
