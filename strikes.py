@@ -132,16 +132,16 @@ def scores_for_possible(dice_set:list) -> list:
 
 
 
-def get_max_potential_score_set(dice_set:list) -> str:
-    "Returns the name of the set that returns a max score for a dice set"
+def get_max_potential_score_set(dice_set:list) -> tuple:
+    "Returns a tuple with the name of the set that returns a max score for a dice set and that max score"
     scores_summary = summarize_potential_scores(dice_set)
     sets = possible_sets(dice_set)
     for set_name in scores_summary.keys():
         if set_name in sets.keys():
            scores = scores_for_possible(dice_set)
-           print("Scores :", scores)
+           #print("Scores :", scores)
            if scores_summary[set_name] == max(scores):
-                return set_name
+                return (set_name, max(scores))
            
            
 

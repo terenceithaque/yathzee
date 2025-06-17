@@ -163,7 +163,10 @@ def play():
             #print(computer_player.analyze_strike())
 
             # Decide the next strike to do
-            computer_player.decide_strike()
+            set, score = computer_player.decide_strike()
+            print("The computer chose ", set)
+            computer_player.set_container.update(set, score)
+            print(computer_player.set_container.content)
 
             # Handle other things below 
 

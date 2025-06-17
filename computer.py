@@ -56,7 +56,7 @@ class ComputerPlayer:
         return self.remaining_sets
  
 
-    def decide_strike(self):
+    def decide_strike(self) -> tuple:
         "Decide which is the best strike to do next according to various parameters"
 
         strike = "" # Next set to do
@@ -79,7 +79,7 @@ class ComputerPlayer:
         frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
-        print("Most frequent values in the last computer roll :", frequent_values)
+        #print("Most frequent values in the last computer roll :", frequent_values)
         # Get possible sets for the most frequent values
         potential_sets = []
         filtered_sets = []
@@ -91,10 +91,13 @@ class ComputerPlayer:
             if (potential_sets.count(dice_set) ==1) and (dice_set in self.possible_sets or dice_set in self.set_container.remaining_sets()):
                 filtered_sets.append(dice_set)
 
-        print("Potential sets for the most frequent values :", filtered_sets)
+        #print("Potential sets for the most frequent values :", filtered_sets)
 
-        max_score_set = get_max_potential_score_set(self.last_dice_roll)
-        print("Set with max potential score :", max_score_set)
+        set, score = get_max_potential_score_set(self.last_dice_roll)
+        print("Set with max potential score :", set)
+
+        strike = set
+        return (strike, score)
 
 
 
