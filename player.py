@@ -78,37 +78,72 @@ class Player:
 
 
     def ask_ignore(self):
-         "Ask the player which set he wants to ignore"
+         "Ask the player which set he wants to ignore, and declares it as ignored into his set container."
 
          # Print a caution message
-         print("CAUTION ! IF YOU DECIDE TO IGNORE A SET, YOU WON'T BE ABLE TO DO IT NEXT.")    
+         print("CAUTION ! IF YOU DECIDE TO IGNORE A SET, YOU WON'T BE ABLE TO DO IT NEXT.")
+
+         # Input to confirm
+         confirm = input("Do you really want to ignore a set  (answer yes or no) ? ")
+         
+         # Make sure the player answers "yes or no"
+         while confirm.strip().lower() not in ["yes", "no"]:
+              confirm = input("Do you really want to ignore a set  (answer yes or no) ? ")
+
+         # If the player answered 'yes'
+         if confirm.strip().lower() == "yes":
+              set_to_ignore = input("Which set do you want to ignore ? ")
+              # Ensure the set to be ignored wasn't done before
+              while not set_to_ignore in self.set_container.remaining_sets():
+                    set_to_ignore = input("Which set do you want to ignore ? ")
+
+              # Tag the chosen set as ignored in the set container
+              self.set_container.ignore(set_to_ignore)
+
+         # if the player answered 'no'
+         if confirm.strip().lower() == "no":
+              # Then return to end the function
+              return         
+              
+
+
 
 
     def ask_set(self) -> str:
-        """Ask the player which dice set to complete. Returns the entered dice set."""
+        """Ask the player which dice set to complete. Returns the entered dice set.
+        If the entered set is 'ignore', then ask the player which set to ignore."""
 
         # Ask the player for the name of the set to be completed
         dice_set = input("Which dice set do you want to complete ? ")
 
-        # Ensure the entered dice set is valid
-        while not dice_set in self.set_container.content.keys():
-            print("The entered set is invalid")
-            # Ask the player for the name of the set to be completed
-            dice_set = input("Which dice set do you want to complete ? ")
+
+        # If the player wants to ignore a set
+        if dice_set == "ignore":
+             self.ask_ignore()       
+
+        else:
+            # Ensure the entered dice set is valid
+            while not dice_set in self.set_container.content.keys():
+                print("The entered set is invalid")
+                # Ask the player for the name of the set to be completed
+                dice_set = input("Which dice set do you want to complete ? ")
 
 
-        # Ensure the entered set is always into the remaining sets and that the current dice roll allows to do it
-        while not dice_set in self.remaining_sets and not dice_set in  self.possible_sets:
-            print("The entered dice set is not doable with your current dice roll or you already completed that set.")
-            # Ask the player for the name of the set to be completed
-            dice_set = input("Which dice set do you want to complete ? ")
+            # Ensure the entered set is always into the remaining sets and that the current dice roll allows to do it
+            while not dice_set in self.remaining_sets and not dice_set in  self.possible_sets:
+                print("The entered dice set is not doable with your current dice roll or you already completed that set.")
+                # Ask the player for the name of the set to be completed
+                dice_set = input("Which dice set do you want to complete ? ")
 
 
-        # Ensure the player cannot do the same set twice
-        while not self.set_container.content[dice_set] == 0:
-            print("You already did that set.") 
-            # Ask the player for the name of the set to be completed
-            dice_set = input("Which dice set do you want to complete ? ")   
+            # Ensure the player cannot do the same set twice
+            while not self.set_container.content[dice_set] == 0:
+                print("You already did that set.") 
+                # Ask the player for the name of the set to be completed
+                dice_set = input("Which dice set do you want to complete ? ")
+
+
+       
 
 
         return dice_set    
