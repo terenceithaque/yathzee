@@ -24,6 +24,9 @@ def construct_dice_list(dice_vals:dict) -> list:
     return dice_list
 
 
+
+
+
 def probability_dice_values(dice_vals:list, n_rerolls=2, n_faces=6) -> float:
     "Returns the probability to get at least one of the target dice values (dice_vals) in n_rerolls and with n_faces (number dice faces)."
     # Success probability

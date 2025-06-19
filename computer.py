@@ -37,6 +37,11 @@ class ComputerPlayer:
         print("Occurences of all dice :", self.last_strike_analysis)
         return self.last_strike_analysis
     
+    def update_score(self):
+        "Update the total score based on the computer's set container"
+        self.total_score = self.set_container.get_sum()
+        
+    
     def get_most_frequent_val(self):
         "Returns the value with the highest number of occurencies in the last strike. Returns the lowest value if no result match."
         dice_vals = [dice_val for dice_val in self.last_strike_analysis.keys()]
@@ -55,7 +60,7 @@ class ComputerPlayer:
         self.remaining_sets = self.set_container.remaining_sets()
         return self.remaining_sets
     
-    def reroll_dice(self) -> list:
+    def reroll_dice(self, n_rerolls=2) -> list:
         "Reroll the dice and returns a list representing the new dice roll"
         # Analyze the last strike
         self.last_strike_analysis = self.analyze_strike()
@@ -75,7 +80,7 @@ class ComputerPlayer:
         
         print("Frequent values in the last dice roll :", frequent_values)
         # Get the probability to redo at least one these values
-        probabilities_values = probability_dice_values(frequent_values, 2, 6)
+        probabilities_values = probability_dice_values(frequent_values, n_rerolls, 6)
 
         print("Probabilities to redo at least one value :", probabilities_values)
         # Convert the remaining sets into list

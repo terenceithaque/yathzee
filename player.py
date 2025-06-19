@@ -32,6 +32,11 @@ class Player:
         self.remaining_sets = self.set_container.remaining_sets()
 
 
+    def update_score(self):
+         "Update the total score based on the values in the player's set container"
+         self.total_score = self.set_container.get_sum()    
+
+
     def reroll_dice(self):
         "Reroll the dice of the player"
         # Ask which dice values should be keeped

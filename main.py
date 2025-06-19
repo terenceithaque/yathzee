@@ -145,9 +145,10 @@ def play():
 
 
 
+            # Update the score
+            player.update_score()
 
-
-
+            print("Your score :", player.total_score)
 
             change_turn(player, computer_player)
 
@@ -177,7 +178,7 @@ def play():
                 # Reroll the dice
                 if max_rerolls > 0:
                     print("Computer is rerolling...")
-                    computer_player.last_dice_roll = computer_player.reroll_dice()
+                    computer_player.last_dice_roll = computer_player.reroll_dice(max_rerolls)
                     print("Computer roll :", computer_player.last_dice_roll)
                     max_rerolls -= 1
 
@@ -189,7 +190,12 @@ def play():
             computer_player.set_container.update(dice_set, score)
             print(computer_player.set_container.content)
 
-            # Handle other things below 
+            # Handle other things below
+
+            # Update the score
+            computer_player.update_score()
+
+            print("Your computer's score :", computer_player.total_score) 
 
 
             change_turn(player, computer_player)
