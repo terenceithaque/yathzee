@@ -137,10 +137,16 @@ class Player:
 
 
             # Ensure the player cannot do the same set twice
-            while not self.set_container.content[dice_set] == 0:
+            while not self.set_container.content[dice_set] == 0 and self.set_container.content[dice_set] != "ignored":
                 print("You already did that set.") 
                 # Ask the player for the name of the set to be completed
                 dice_set = input("Which dice set do you want to complete ? ")
+
+            # If the dice set was tagged as "ignored"
+            while self.set_container.content[dice_set] == "ignored":
+                 print("You cannot do an ignored dice set.")
+                 # Ask the player for the name of the set to be completed
+                 dice_set = input("Which dice set do you want to complete ? ")    
 
 
        
