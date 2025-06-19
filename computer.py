@@ -38,7 +38,7 @@ class ComputerPlayer:
         return self.last_strike_analysis
     
     def get_most_frequent_val(self):
-        "Returns the value with the highest number of occurencies in the last strike. Retunrs the lowest value if no result match."
+        "Returns the value with the highest number of occurencies in the last strike. Returns the lowest value if no result match."
         dice_vals = [dice_val for dice_val in self.last_strike_analysis.keys()]
         most_frequent = min(dice_vals)
 
@@ -54,6 +54,37 @@ class ComputerPlayer:
         "Update the list of remaining sets for the computer"
         self.remaining_sets = self.set_container.remaining_sets()
         return self.remaining_sets
+    
+    def reroll_dice(self) -> list:
+        "Reroll the dice and returns a list representing the new dice roll"
+        # Analyze the last strike
+        self.last_strike_analysis = self.analyze_strike()
+
+        # Get the occurrences of each dice value
+        occurences_values = self.last_strike_analysis.values()
+
+        # Get the possible sets for the last dice roll
+        sets_for_last = possible_sets(self.last_dice_roll)
+        
+        # Filter the possible sets with those that the computer still have to do
+        sets = {dice_set:condition for dice_set, condition in zip(sets_for_last.keys(),sets_for_last.values()) if dice_set in self.set_container.remaining_sets()}
+
+        # We consider the frequent values as those in the superior half of occurences
+        frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
+                           if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
+        
+        print("Frequent values in the last dice roll :", frequent_values)
+        # Get the probability to redo at least one these values
+        probabilities_values = probability_dice_values(frequent_values, 2, 6)
+
+        print("Probabilities to redo at least one value :", probabilities_values)
+        # Convert the remaining sets into list
+        sets_list = list(sets.keys())
+
+
+        self.last_dice_roll = dice_roll(5)
+
+        return self.last_dice_roll
  
 
     def decide_strike(self) -> tuple:

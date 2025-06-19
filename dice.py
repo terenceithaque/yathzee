@@ -1,6 +1,7 @@
 "dice.py allows dice handling in the game"
 import random
 import copy
+import math
 
 
 def construct_dice_list(dice_vals:dict) -> list:
@@ -20,8 +21,18 @@ def construct_dice_list(dice_vals:dict) -> list:
         dice_list.extend([dice_val] * dice_vals[dice_val])
 
 
-    return dice_list    
+    return dice_list
 
+
+def probability_dice_values(dice_vals:list, n_rerolls=2, n_faces=6) -> float:
+    "Returns the probability to get at least one of the target dice values (dice_vals) in n_rerolls and with n_faces (number dice faces)."
+    # Success probability
+    success_prob = len(dice_vals)/n_faces
+
+    # Fail probability
+    fail_prob = 1 - success_prob
+
+    return 1 - (fail_prob ** n_rerolls)
 
 
 

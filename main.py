@@ -169,13 +169,15 @@ def play():
             # Decide the next strike to do
             dice_set, score = computer_player.decide_strike()
 
+            #computer_player.reroll_dice()
+
             # Ensure the chosen set wasn't done before
             while dice_set not in computer_player.set_container.remaining_sets():
                 
                 # Reroll the dice
                 if max_rerolls > 0:
                     print("Computer is rerolling...")
-                    computer_player.last_dice_roll = dice_roll(5)
+                    computer_player.last_dice_roll = computer_player.reroll_dice()
                     print("Computer roll :", computer_player.last_dice_roll)
                     max_rerolls -= 1
 
