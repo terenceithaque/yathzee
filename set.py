@@ -52,7 +52,7 @@ class SetContainer:
 
     def remaining_sets(self):
         """Returns a list of the remaining sets to be done (those with score 0)."""
-        remaining = [dice_set for dice_set in self.content.keys() if self.content[dice_set] == 0]
+        remaining = [dice_set for dice_set in self.content.keys() if self.content[dice_set] == 0 and self.content[dice_set] != "ignored"]
         return remaining
     
     def ignore(self, dice_set:str):

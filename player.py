@@ -90,11 +90,19 @@ class Player:
 
          # If the player answered 'yes'
          if confirm.strip().lower() == "yes":
-              set_to_ignore = input("Which set do you want to ignore ? ")
+              set_to_ignore = input("Which set do you want to ignore ? (type 'cancel' if you change your mind) :")
+              # If the player change his mind
+              if set_to_ignore.strip().lower() == "cancel":
+                   print("Ignorance canceled.")
+                   return
               # Ensure the set to be ignored wasn't done before
               while not set_to_ignore in self.set_container.remaining_sets():
                     print("You cannot ignore a set you have done.")
-                    set_to_ignore = input("Which set do you want to ignore ? ")
+                    set_to_ignore = input("Which set do you want to ignore ? (type 'cancel' if you change your mind) : ")
+                    # If the player change his mind
+                    if set_to_ignore.strip().lower() == "cancel":
+                        print("Ignorance canceled.")
+                        return
 
 
 
@@ -103,6 +111,7 @@ class Player:
 
          # if the player answered 'no'
          if confirm.strip().lower() == "no":
+              print("Ignorance canceled.")
               # Then return to end the function
               return         
               
