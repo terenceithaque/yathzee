@@ -50,12 +50,10 @@ class Player:
                     
         keep_values = [int(value) for value in keep_values.split(",")]
 
+        # Number of dice to reroll
+        n_dice = 5 - len(keep_values)
 
-        n_dice = input("Number of dice to reroll :")
-        while n_dice not in ["1", "2", "3", "4", "5"]:
-                n_dice = input("Number of dice to reroll :")
-
-        n_dice = int(n_dice)
+        print("Number of dice to reroll :", n_dice)
 
         rerolled_dice = dice_roll(n_dice, keep_values)
                     
@@ -95,7 +93,10 @@ class Player:
               set_to_ignore = input("Which set do you want to ignore ? ")
               # Ensure the set to be ignored wasn't done before
               while not set_to_ignore in self.set_container.remaining_sets():
+                    print("You cannot ignore a set you have done.")
                     set_to_ignore = input("Which set do you want to ignore ? ")
+
+
 
               # Tag the chosen set as ignored in the set container
               self.set_container.ignore(set_to_ignore)

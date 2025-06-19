@@ -57,7 +57,7 @@ def play():
     # If the player starts first
     if first == 1:
         print(f"You did a roll score of {sum(player.last_dice_roll)} against {sum(computer_player.last_dice_roll)} for the computer. You begin first.")
-        player.turns = True
+        player.turn = True
         computer_player.turn = False
 
     # Or if the computer starts first
