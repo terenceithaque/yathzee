@@ -1,4 +1,5 @@
 "set.py contains a SetContainer class representing a container for dice sets."
+from prettytable import *
 
 def sets_for_value(dice_val:int) -> list:
     "Returns a list of sets that might be done with the given dice value"
@@ -48,6 +49,23 @@ class SetContainer:
         
         # Iterate over the values of the content and return their sum
         return sum(self.content_values)
+    
+
+    def display(self) -> None:
+        "Display the content of the set container as a table with lines and columns."
+
+        # Number of lines
+        lines = len(self.content)
+
+        table = PrettyTable()
+        table.field_names = ["Sets ", "Scores"]
+        for dice_set, score in zip(self.content.keys(), self.content.values()):
+            table.add_row([dice_set, score])
+
+            
+        print(table)
+
+
     
 
     def remaining_sets(self):

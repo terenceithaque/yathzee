@@ -123,7 +123,8 @@ def play():
                     player.set_container.update(dice_set, score)
                     player.update_remaining_sets()
 
-                    print("Your game :", player.set_container.content)
+                    #print("Your game :", player.set_container.content)
+                    
 
 
             else:
@@ -139,7 +140,9 @@ def play():
                 player.set_container.update(dice_set, score)
                 player.update_remaining_sets()
 
-                print("Your game :", player.set_container.content)
+
+            print("Your game board:")
+            player.set_container.display()
 
 
                        
@@ -191,7 +194,9 @@ def play():
                 
             print("The computer chose ", dice_set)
             computer_player.set_container.update(dice_set, score)
-            print(computer_player.set_container.content)
+            #print(computer_player.set_container.content)
+            print("Computer game board:")
+            computer_player.set_container.display()
 
             # Handle other things below
 

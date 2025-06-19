@@ -1,4 +1,5 @@
 A Python command-line based Yathzee game.
+Warning : this program requires PrettyTable to installed as a Python module.
 
 Here are the rules:
 
