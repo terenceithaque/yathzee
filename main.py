@@ -183,6 +183,7 @@ def play():
                     max_rerolls -= 1
 
                 dice_set, score = computer_player.decide_strike()
+                print("New decision :", dice_set)
 
 
                 

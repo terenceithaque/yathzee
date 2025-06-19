@@ -77,6 +77,13 @@ class Player:
         print("Possible sets :", self.possible_sets)
 
 
+    def ask_ignore(self):
+         "Ask the player which set he wants to ignore"
+
+         # Print a caution message
+         print("CAUTION ! IF YOU DECIDE TO IGNORE A SET, YOU WON'T BE ABLE TO DO IT NEXT.")    
+
+
     def ask_set(self) -> str:
         """Ask the player which dice set to complete. Returns the entered dice set."""
 
