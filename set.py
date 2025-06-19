@@ -54,9 +54,6 @@ class SetContainer:
     def display(self) -> None:
         "Display the content of the set container as a table with lines and columns."
 
-        # Number of lines
-        lines = len(self.content)
-
         table = PrettyTable()
         table.field_names = ["Sets ", "Scores"]
         for dice_set, score in zip(self.content.keys(), self.content.values()):
