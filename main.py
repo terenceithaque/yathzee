@@ -188,11 +188,15 @@ def play():
                     print("Computer roll :", computer_player.last_dice_roll)
                     max_rerolls -= 1
                     time.sleep(1)
+                    dice_set, score = computer_player.decide_strike()
+                    print("New decision :", dice_set)
+                    time.sleep(1)
+
+                else:
+                    break    
 
 
-                dice_set, score = computer_player.decide_strike()
-                print("New decision :", dice_set)
-                time.sleep(1)
+                
 
 
                 
