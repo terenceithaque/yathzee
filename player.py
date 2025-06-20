@@ -70,9 +70,8 @@ class Player:
             final_dice = []
 
             # Add kept dice values to the final dice list
-            for dice_val in self.last_dice_roll:
-                if dice_val in keep_values:
-                    final_dice.append(dice_val)
+            for dice_val in keep_values:
+                final_dice.append(dice_val)
 
             # Add the new rerolled dice to the final dice list
             final_dice.extend(rerolled_dice)

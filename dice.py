@@ -40,19 +40,9 @@ def probability_dice_values(dice_vals:list, n_rerolls=2, n_faces=6) -> float:
 
 
 
-def new_dice(dice_list:list) -> int:
-    """Generate a random dice value and adds it to the dice list."""
-
-    # Copy the current dice list
-    dice_list_copy = copy.copy(dice_list)
-
-    # Generate a value for the new dice (between 1 and 6 included)
-    dice = random.randint(1, 6)
-
-    # Add the new dice to the dice list
-    dice_list_copy.append(dice)
-
-    return dice
+def new_dice() -> int:
+    """Generate a random dice value bteween 1 and 6"""
+    return random.randint(1,6)
 
 
 def dice_roll(n_dice=5, ignore_values=[]) -> list:
@@ -64,12 +54,12 @@ def dice_roll(n_dice=5, ignore_values=[]) -> list:
     # Generate n_dice dice with a random value and add them to the roll list
 
     for _ in range(n_dice):
-        dice = new_dice(roll)
+        dice = new_dice()
 
         # Ensure the dice is not in the values to be ignored
         while dice in ignore_values:
             # Regenerate the dice
-            dice = new_dice(roll)
+            dice = new_dice()
 
             
         roll.append(dice)
