@@ -89,7 +89,8 @@ def possible_sets(dice_list:list) -> dict:
         all(val in dice_list for val in seq) for seq in 
         ([1,2,3,4,5], [2,3,4,5,6])),
 
-        "yathzee" : any([dice_list.count(dice) == 5 for dice in dice_list])
+        "yathzee" : any([dice_list.count(dice) == 5 for dice in dice_list]),
+        "chance":True
     }
 
     possible_sets = {dice_set:condition for dice_set, condition in sets_conditions.items() if condition}
