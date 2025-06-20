@@ -63,25 +63,28 @@ class SetContainer:
 
 
         table = PrettyTable()
-        table.field_names = ["Sets ", "Scores"]
+        table.field_names = ["Sets", "Scores"]
         for dice_set, score in zip(self.content.keys(), self.content.values()):
 
             # Display "ignored" in red
             if score == "ignored":
+                colored_set = f"{red}{dice_set}{reset}"
                 colored_score = f"{red}{score}{reset}"
 
 
             else:
                 # Display scores superior to 0 in yellow
                 if score > 0:
+                    colored_set = f"{yellow}{dice_set}{reset}"
                     colored_score = f"{yellow}{score}{reset}"
 
                 # And display null scores normally    
                 else:
+                    colored_set = f"{reset}{dice_set}"
                     colored_score = f"{reset}{score}"
 
 
-            table.add_row([dice_set, colored_score])
+            table.add_row([colored_set, colored_score])
 
             
         print(table)
