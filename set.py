@@ -50,14 +50,38 @@ class SetContainer:
         # Iterate over the values of the content and return their sum
         return sum(self.content_values)
     
+    
 
     def display(self) -> None:
-        "Display the content of the set container as a table with lines and columns."
+        "Display the content of the set container as a table with lines and columns. Scores are displayed using ANSI color code based on their values."
+
+
+        # ANSI color codes
+        yellow = "\033[93m"
+        red = "\033[91m"
+        reset = "\033[0m"
+
 
         table = PrettyTable()
         table.field_names = ["Sets ", "Scores"]
         for dice_set, score in zip(self.content.keys(), self.content.values()):
-            table.add_row([dice_set, score])
+
+            # Display "ignored" in red
+            if score == "ignored":
+                colored_score = f"{red}{score}{reset}"
+
+
+            else:
+                # Display scores superior to 0 in yellow
+                if score > 0:
+                    colored_score = f"{yellow}{score}{reset}"
+
+                # And display null scores normally    
+                else:
+                    colored_score = f"{reset}{score}"
+
+
+            table.add_row([dice_set, colored_score])
 
             
         print(table)
@@ -67,7 +91,7 @@ class SetContainer:
 
     def remaining_sets(self):
         """Returns a list of the remaining sets to be done (those with score 0)."""
-        remaining = [dice_set for dice_set in self.content.keys() if self.content[dice_set] == 0 and self.content[dice_set] != "ignored"]
+        remaining = [dice_set for dice_set in self.content.keys() if self.content[dice_set] == 0]
         return remaining
     
     def ignore(self, dice_set:str):
