@@ -4,7 +4,7 @@ from turn import *
 from set import *
 from player import *
 from computer import *
-
+import time
 
 def ask_reroll() -> bool:
     """Ask the player if he wants to reroll his dice.
@@ -161,6 +161,7 @@ def play():
         elif computer_player.turn:
             print("Your computer is playing...")
             computer_player.last_dice_roll = dice_roll(5, [])
+            time.sleep(1)
             print("Computer roll :", computer_player.last_dice_roll)
 
             print("Remaining sets for the computer: ", computer_player.set_container.remaining_sets())
@@ -186,13 +187,17 @@ def play():
                     computer_player.last_dice_roll = computer_player.reroll_dice(max_rerolls)
                     print("Computer roll :", computer_player.last_dice_roll)
                     max_rerolls -= 1
+                    time.sleep(1)
+
 
                 dice_set, score = computer_player.decide_strike()
                 print("New decision :", dice_set)
+                time.sleep(1)
 
 
                 
             print("The computer chose ", dice_set)
+            time.sleep(1)
             computer_player.set_container.update(dice_set, score)
             #print(computer_player.set_container.content)
             print("Computer game board:")
