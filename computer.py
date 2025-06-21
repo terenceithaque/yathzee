@@ -86,8 +86,14 @@ class ComputerPlayer:
         # Convert the remaining sets into list
         sets_list = list(sets.keys())
 
+        # Values to keep
+        keep_values = []
+        for dice_val in frequent_values:
+            if not dice_val in keep_values:
+                keep_values.append(dice_val)
 
-        self.last_dice_roll = dice_roll(5)
+
+        self.last_dice_roll = dice_roll(5, keep_values)
 
         return self.last_dice_roll
  

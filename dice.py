@@ -38,6 +38,21 @@ def probability_dice_values(dice_vals:list, n_rerolls=2, n_faces=6) -> float:
     return 1 - (fail_prob ** n_rerolls)
 
 
+def chance_to_get_value(dice_val:int, n:int) -> int:
+    """Return the probability for a dice value to appear n times using math.comb().
+      Reminder: math.comb() returns how many combinations exists to have n times some value."""
+    
+    # The probability is comb(dice_val * n)
+    # * (1 / dice faces)**n
+    # * (5 / dice faces)
+    # ** (dice_val - n)
+
+    prob = math.comb(dice_val, n) * (1 / 6)**n * (5/6)**(dice_val - n)
+    return prob
+
+
+
+
 
 
 def new_dice() -> int:
