@@ -78,14 +78,15 @@ class ComputerPlayer:
         frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
-        occurences_frequent_values = range(max(occurences_values) // 2, max(occurences_values) + 1)
+        occurences_frequent = [self.last_strike_analysis[dice_val]for dice_val in self.last_strike_analysis.keys() if self.last_strike_analysis[dice_val]
+                               in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
         #print("Frequent values in the last dice roll :", frequent_values)
         # Get the probability to redo at least one these values
 
         # Convert the remaining sets into list
 
-        chances_values = chances_dices_values(frequent_values, occurences_frequent_values)
+        chances_values = chances_dices_values(frequent_values, occurences_frequent)
 
         print("Chances to redo frequent values :", chances_values)
         sets_list = list(sets.keys())
