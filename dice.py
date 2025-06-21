@@ -27,15 +27,22 @@ def construct_dice_list(dice_vals:dict) -> list:
 
 
 
-def probability_dice_values(dice_vals:list, n_rerolls=2, n_faces=6) -> float:
-    "Returns the probability to get at least one of the target dice values (dice_vals) in n_rerolls and with n_faces (number dice faces)."
-    # Success probability
-    success_prob = len(dice_vals)/n_faces
+def chances_dices_values(dice_vals:list, occurences:list) -> int:
+    """Returns a dictionnary containing each dice value in dice_vals and the chance to obtain it using the occurences list and math.comb().
+    - dice_vals: list of dice values
+    - occurences: list of occurences for the dice values"""
 
-    # Fail probability
-    fail_prob = 1 - success_prob
+    assert len(dice_vals) == len(occurences),"Length of dice_vals and occurences must be the same."
 
-    return 1 - (fail_prob ** n_rerolls)
+    chances_values = {}
+    for dice_val, n_occ in zip(dice_vals, occurences):
+        # The probability is comb(dice_val * n_occ)
+        # * (1 / dice faces)**n_occ
+        # * (5 / dice faces)
+        # ** (dice_val - n_occ)
+        chances_values[dice_val] = math.comb(dice_val, n_occ) * (1 / 6)**n_occ * (5/6)**(dice_val - n_occ)
+
+    return chances_values    
 
 
 def chance_to_get_value(dice_val:int, n:int) -> int:

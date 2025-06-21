@@ -78,12 +78,16 @@ class ComputerPlayer:
         frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
+        occurences_frequent_values = range(max(occurences_values) // 2, max(occurences_values) + 1)
+        
         #print("Frequent values in the last dice roll :", frequent_values)
         # Get the probability to redo at least one these values
-        probabilities_values = probability_dice_values(frequent_values, n_rerolls, 6)
 
-        #print("Probabilities to redo at least one value :", probabilities_values)
         # Convert the remaining sets into list
+
+        chances_values = chances_dices_values(frequent_values, occurences_frequent_values)
+
+        print("Chances to redo frequent values :", chances_values)
         sets_list = list(sets.keys())
 
         # Values to keep
@@ -121,7 +125,11 @@ class ComputerPlayer:
         frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
-        #print("Most frequent values in the last computer roll :", frequent_values)
+        occurences_frequent = [self.last_strike_analysis[dice_val]for dice_val in self.last_strike_analysis.keys() if self.last_strike_analysis[dice_val]
+                               in range(max(occurences_values) // 2, max(occurences_values) + 1)]
+        
+        print("Most frequent values in the last computer roll :", frequent_values)
+        print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent))
         # Get possible sets for the most frequent values
         potential_sets = []
         filtered_sets = []
