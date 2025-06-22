@@ -24,6 +24,14 @@ def construct_dice_list(dice_vals:dict) -> list:
     return dice_list
 
 
+def values_with_n_occ(dice_list:list, n=1) -> list:
+    """Returns a list of values having at least n occurences in dice_list.
+    dice_list: list of dice values
+    n: target number of occurences"""
+
+    values = [value for value in dice_list if occurences(dice_list, value) >= n]
+    return values
+
 
 
 
