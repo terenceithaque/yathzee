@@ -3,6 +3,7 @@ from set import *
 from turn import *
 from dice import *
 from strikes import *
+from copy import *
 
 
 class ComputerPlayer:
@@ -87,18 +88,39 @@ class ComputerPlayer:
         # Convert the remaining sets into list
 
         chances_values = chances_dices_values(frequent_values, occurences_frequent)
-
         print("Chances to redo frequent values :", chances_values)
+        # Keep only values with max chance to reappear
+        middle_chance = max(chances_values.values()) // 2
+        print("Middle chance :", middle_chance)
+        max_chance = max(chances_values.values())
+        print("Max chance :", max_chance)
+        max_chances_vals = []
+        for val in chances_values.keys():
+            if middle_chance <= chances_values[val] and chances_values[val] <= max_chance:
+                max_chances_vals.append(val)
+                
+        print("Values with max chances :", max_chances_vals)
         sets_list = list(sets.keys())
 
-        # Values to keep
-        keep_values = []
-        for dice_val in frequent_values:
-            if not dice_val in keep_values:
-                keep_values.append(dice_val)
+        # Keep values with max chance to reroll
+        keep_values = copy(max_chances_vals)
+
+        print("Keeping values :", keep_values)
 
 
-        self.last_dice_roll = dice_roll(5, keep_values)
+        # Final dice roll
+        final_dice = []
+
+        # Extend the final dice roll with the kept dice values
+        final_dice.extend(keep_values)
+        print("Final dice roll (extended with keep_values):", final_dice)
+
+
+        # And then add new dice values to it in order to reroll
+        final_dice.extend(dice_roll(5 - len(keep_values), keep_values))
+
+
+        self.last_dice_roll = copy(final_dice)
 
         return self.last_dice_roll
  

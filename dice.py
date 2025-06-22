@@ -28,7 +28,7 @@ def construct_dice_list(dice_vals:dict) -> list:
 
 
 def chances_dices_values(dice_vals:list, occurences:list) -> int:
-    """Returns a dictionnary containing each dice value in dice_vals and the chance to obtain it using the occurences list and math.comb().
+    """Returns a dictionnary containing each dice value in dice_vals and the chance to obtain it using the occurences list and math.comb(). The final values are rounded.
     - dice_vals: list of dice values
     - occurences: list of occurences for the dice values"""
 
@@ -40,21 +40,21 @@ def chances_dices_values(dice_vals:list, occurences:list) -> int:
         # * (1 / dice faces)**n_occ
         # * (5 / dice faces)
         # ** (dice_val - n_occ)
-        chances_values[dice_val] = math.comb(dice_val, n_occ) * (1 / 6)**n_occ * (5/6)**(dice_val - n_occ)
+        chances_values[dice_val] = round(math.comb(dice_val, n_occ) * (1 / 6)**n_occ * (5/6)**(dice_val - n_occ), 1)
 
     return chances_values    
 
 
 def chance_to_get_value(dice_val:int, n:int) -> int:
     """Return the probability for a dice value to appear n times using math.comb().
-      Reminder: math.comb() returns how many combinations exists to have n times some value."""
+      Reminder: math.comb() returns how many combinations exists to have n times some value. The final value is rounded."""
     
     # The probability is comb(dice_val * n)
     # * (1 / dice faces)**n
     # * (5 / dice faces)
     # ** (dice_val - n)
 
-    prob = math.comb(dice_val, n) * (1 / 6)**n * (5/6)**(dice_val - n)
+    prob = round(math.comb(dice_val, n) * (1 / 6)**n * (5/6)**(dice_val - n), 1)
     return prob
 
 

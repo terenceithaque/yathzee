@@ -184,7 +184,7 @@ def play():
                 # Reroll the dice
                 if max_rerolls > 0:
                     print("Computer is rerolling...")
-                    computer_player.last_dice_roll = computer_player.reroll_dice(max_rerolls)
+                    computer_player.reroll_dice(max_rerolls)
                     print("Computer roll :", computer_player.last_dice_roll)
                     max_rerolls -= 1
                     time.sleep(1)
