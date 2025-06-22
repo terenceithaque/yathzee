@@ -65,7 +65,9 @@ class Player:
 
             print("Number of dice to reroll :", n_dice)
 
-            rerolled_dice = dice_roll(n_dice, keep_values)
+            ignore_values = [value for value in self.last_dice_roll if value not in keep_values]
+
+            rerolled_dice = dice_roll(n_dice, ignore_values)
                     
             final_dice = []
 

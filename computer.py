@@ -107,6 +107,9 @@ class ComputerPlayer:
 
         print("Keeping values :", keep_values)
 
+        # Values to be ignored
+        ignored_values = [value for value in self.last_dice_roll if value not in keep_values]
+
 
         # Final dice roll
         final_dice = []
@@ -117,7 +120,7 @@ class ComputerPlayer:
 
 
         # And then add new dice values to it in order to reroll
-        final_dice.extend(dice_roll(5 - len(keep_values), keep_values))
+        final_dice.extend(dice_roll(5 - len(keep_values), ignored_values))
 
 
         self.last_dice_roll = copy(final_dice)
@@ -159,12 +162,14 @@ class ComputerPlayer:
         for dice_val in frequent_values:
             potential_sets.extend(sets_for_value(dice_val))
 
+         
+
         # Filter sets to make them appear only one time in the list
         for dice_set in potential_sets:
             if (potential_sets.count(dice_set) ==1) and (dice_set in self.possible_sets or dice_set in self.set_container.remaining_sets()):
                 filtered_sets.append(dice_set)
 
-        #print("Potential sets for the most frequent values :", filtered_sets)
+        print("Potential sets for the most frequent values :", filtered_sets)
 
         set, score = get_max_potential_score_set(self.last_dice_roll)
         print("Set with max potential score :", set)

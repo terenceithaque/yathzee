@@ -68,7 +68,7 @@ def play():
 
 
     # Enter the main loop
-    while not (player.set_container.is_complete() and computer_player.set_container.is_complete()):
+    while not (player.set_container.is_complete() or computer_player.set_container.is_complete()):
         # If the turn is to the player
 
         print()
@@ -106,10 +106,10 @@ def play():
                 player.update_remaining_sets()
 
 
-            # If the player has several sets  to do
-            if len(player.possible_sets.keys()) > 1:
-                print(f"You must choose between {list(dice_set for dice_set in player.possible_sets if dice_set in 
-                                                      player.remaining_sets)}")
+            # If the player has several sets  to do and that some of them are doable
+            doable_sets = list(dice_set for dice_set in player.possible_sets if dice_set in player.remaining_sets)
+            if len(player.possible_sets.keys()) > 1 and len(doable_sets) >= 1:
+                print(f"You must choose between {doable_sets}")
                 
                 # Ask the player which dice set he wants to complete
                 dice_set = player.ask_set()
@@ -128,17 +128,26 @@ def play():
 
 
             else:
-                print(f"You must must end by {player.remaining_sets}")
-                
-                # Ask the player which dice set he wants to complete
-                dice_set = player.ask_set()
-                # Get a summary of the potential scores and extract the score for the chosen dice set
-                scores_summary = summarize_potential_scores(player.last_dice_roll)
-                score = scores_summary[dice_set]
+                last_set = player.remaining_sets[0]
+                # If the player can do the last set
+                if last_set in possible_sets(player.last_dice_roll):
 
-                # Update the player's set container and the remaining sets
-                player.set_container.update(dice_set, score)
-                player.update_remaining_sets()
+                    print(f"You must must end by {player.remaining_sets}")
+                
+                    # Ask the player which dice set he wants to complete
+                    dice_set = player.ask_set()
+                    # Get a summary of the potential scores and extract the score for the chosen dice set
+                    scores_summary = summarize_potential_scores(player.last_dice_roll)
+                    score = scores_summary[dice_set]
+
+                    # Update the player's set container and the remaining sets
+                    player.set_container.update(dice_set, score)
+                    player.update_remaining_sets()
+                
+                # If he can't, then skip the turn
+                else:
+                    print("You're unable to do the last set for now.")
+                    time.sleep(1)
 
 
             print("Your game board:")
