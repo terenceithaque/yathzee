@@ -45,10 +45,10 @@ def chances_dices_values(dice_vals:list, occurences:list, n_rerolls=2) -> int:
 
     chances_values = {}
     for dice_val, n_occ in zip(dice_vals, occurences):
-        # The probability is comb(dice_val * n_occ)
+        # The probability is comb(n_rerolls * n_occ)
         # * (1 / dice faces)**n_occ
         # * (5 / dice faces)
-        # ** (dice_val - n_occ)
+        # ** (n_rerolls - n_occ)
         chances_values[dice_val] = round(math.comb(n_rerolls, n_occ) * (1 / 6)**n_occ * (5/6)**(n_rerolls - n_occ), 1)
 
     return chances_values    
@@ -58,10 +58,10 @@ def chance_to_get_value(dice_val:int, n:int, n_rerolls=2) -> int:
     """Return the probability for a dice value to appear n times using math.comb().
       Reminder: math.comb() returns how many combinations exists to have n times some value. The final value is rounded."""
     
-    # The probability is comb(dice_val * n)
+    # The probability is comb(n_rerolls * n)
     # * (1 / dice faces)**n
     # * (5 / dice faces)
-    # ** (dice_val - n)
+    # ** (n_rerolls - n)
 
     prob = round(math.comb(n_rerolls, n) * (1 / 6)**n * (5/6)**(n_rerolls - n), 1)
     return prob
