@@ -27,10 +27,11 @@ def construct_dice_list(dice_vals:dict) -> list:
 
 
 
-def chances_dices_values(dice_vals:list, occurences:list) -> int:
+def chances_dices_values(dice_vals:list, occurences:list, n_rerolls=2) -> int:
     """Returns a dictionnary containing each dice value in dice_vals and the chance to obtain it using the occurences list and math.comb(). The final values are rounded.
     - dice_vals: list of dice values
-    - occurences: list of occurences for the dice values"""
+    - occurences: list of occurences for the dice values
+    - n_rerolls: Number of dice to reroll"""
 
     assert len(dice_vals) == len(occurences),"Length of dice_vals and occurences must be the same."
 
@@ -40,12 +41,12 @@ def chances_dices_values(dice_vals:list, occurences:list) -> int:
         # * (1 / dice faces)**n_occ
         # * (5 / dice faces)
         # ** (dice_val - n_occ)
-        chances_values[dice_val] = round(math.comb(dice_val, n_occ) * (1 / 6)**n_occ * (5/6)**(dice_val - n_occ), 1)
+        chances_values[dice_val] = round(math.comb(n_rerolls, n_occ) * (1 / 6)**n_occ * (5/6)**(n_rerolls - n_occ), 1)
 
     return chances_values    
 
 
-def chance_to_get_value(dice_val:int, n:int) -> int:
+def chance_to_get_value(dice_val:int, n:int, n_rerolls=2) -> int:
     """Return the probability for a dice value to appear n times using math.comb().
       Reminder: math.comb() returns how many combinations exists to have n times some value. The final value is rounded."""
     
@@ -54,7 +55,7 @@ def chance_to_get_value(dice_val:int, n:int) -> int:
     # * (5 / dice faces)
     # ** (dice_val - n)
 
-    prob = round(math.comb(dice_val, n) * (1 / 6)**n * (5/6)**(dice_val - n), 1)
+    prob = round(math.comb(n_rerolls, n) * (1 / 6)**n * (5/6)**(n_rerolls - n), 1)
     return prob
 
 

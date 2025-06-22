@@ -87,7 +87,7 @@ class ComputerPlayer:
 
         # Convert the remaining sets into list
 
-        chances_values = chances_dices_values(frequent_values, occurences_frequent)
+        chances_values = chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values))
         print("Chances to redo frequent values :", chances_values)
         # Keep only values with max chance to reappear
         middle_chance = max(chances_values.values()) // 2
@@ -155,7 +155,7 @@ class ComputerPlayer:
                                in range(max(occurences_values) // 2, max(occurences_values) + 1)]
         
         print("Most frequent values in the last computer roll :", frequent_values)
-        print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent))
+        print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values)))
         # Get possible sets for the most frequent values
         potential_sets = []
         filtered_sets = []

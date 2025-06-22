@@ -187,6 +187,9 @@ def play():
 
             #computer_player.reroll_dice()
 
+            # List of doable sets
+            doable_sets = list(dice_set for dice_set in computer_player.possible_sets if dice_set in computer_player.remaining_sets)
+
             # Ensure the chosen set wasn't done before
             while dice_set not in computer_player.set_container.remaining_sets():
                 
@@ -202,8 +205,27 @@ def play():
                     time.sleep(1)
 
                 else:
+                    
                     break    
 
+            
+
+            # Backup condition if the computer failed to decide a remaining set within 2 dice rolls
+            if dice_set not in computer_player.set_container.remaining_sets():
+                # If at least one set is doable
+                if len(doable_sets) >= 1:
+                    print("No remaining rerolls, choosing another set.")
+                    dice_set = random.choice(doable_sets)
+                    score = summarize_potential_scores(computer_player.last_dice_roll)[dice_set]
+                    print("New decision :", dice_set)
+                    time.sleep(1)
+
+                # If no set is doable
+                else:
+                    # Give the turn to the player
+                    print("Computer is unable to do a set, skipping turn.")
+                    change_turn(player, computer_player)
+                    pass    
 
                 
 
