@@ -126,6 +126,10 @@ class ComputerPlayer:
         self.last_dice_roll = copy(final_dice)
 
         return self.last_dice_roll
+    
+
+    def decide_ignore(self) -> str:
+        "Decide which strike should be ignored based on last dice roll and completed sets"
  
 
     def decide_strike(self) -> tuple:
