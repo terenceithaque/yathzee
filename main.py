@@ -81,6 +81,9 @@ def play():
         # If the player haven't completed all his sets
         if not player_finished:
             if player.turn:
+
+                player.reinitialize_reroll_counter() # Reinitialize the max reroll counter to 2
+
                 input("Enter to make a dice roll :")
                 player.last_dice_roll = dice_roll(5, [])
                 print("Your roll :", player.last_dice_roll)
@@ -94,17 +97,15 @@ def play():
                 #print("Your remaining sets :", player.remaining_sets)
 
 
-                # The player can reroll two times max
-                max_rerolls = 2
 
                 # Ask the player if he wants to reroll his dice 
-                while  max_rerolls > 0:
+                while player.max_rerolls > 0:
                     
                     # If the player wants to reroll
                     if ask_reroll():
 
                         player.reroll_dice()                  
-                        max_rerolls -= 1
+                        player.max_rerolls -= 1
 
                     # End the loop if he doesn't want to reroll
                     else:
@@ -191,7 +192,7 @@ def play():
                 
                 #print("Remaining sets for the computer: ", computer_player.set_container.remaining_sets())
 
-                max_rerolls = 2 # Number of rerolls the computer can do
+                computer_player.reinitialize_reroll_counter() # Reinitiaalize the reroll counter to 2
 
                 print("Set that might be ignored :", computer_player.decide_ignore())
                 
@@ -210,11 +211,11 @@ def play():
                 while dice_set not in computer_player.set_container.remaining_sets():
                     
                     # Reroll the dice
-                    if max_rerolls > 0:
+                    if computer_player.max_rerolls > 0:
                         print("Computer is rerolling...")
-                        computer_player.reroll_dice(max_rerolls)
+                        computer_player.reroll_dice()
                         print("Computer roll :", computer_player.last_dice_roll)
-                        max_rerolls -= 1
+                        computer_player.max_rerolls -= 1
                         time.sleep(1)
                         dice_set, score = computer_player.decide_strike()
                         print("New decision :", dice_set)

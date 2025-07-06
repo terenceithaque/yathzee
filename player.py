@@ -21,11 +21,18 @@ class Player:
         # Total score
         self.total_score = 0
 
+        # Number of rerolls for the player
+        self.max_rerolls = 2
+
         self.possible_sets =  {}
 
 
         self.remaining_sets = self.set_container.remaining_sets()
 
+
+    def reinitialize_reroll_counter(self):
+        "Reinitialize the max reroll counter to 2."
+        self.max_rerolls = 2
 
     def update_remaining_sets(self) -> list:
         "Updates the list of remaining sets for the player"

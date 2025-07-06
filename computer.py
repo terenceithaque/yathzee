@@ -23,6 +23,9 @@ class ComputerPlayer:
         # Total score
         self.total_score = 0
 
+        # Number of rerolls for the computer
+        self.max_rerolls = 2
+
         self.remaining_sets = self.set_container.remaining_sets()
 
 
@@ -31,6 +34,10 @@ class ComputerPlayer:
 
         # Dict to analyze the last strike (get the number of occurences for each dice)
         self.last_strike_analysis = {}
+
+    def reinitialize_reroll_counter(self):
+        "Reinitialize the max reroll counter to 2."
+        self.max_rerolls = 2    
 
     def analyze_strike(self):
         "Analyze the last strike and updates the last strike analyzing dict"
@@ -61,7 +68,7 @@ class ComputerPlayer:
         self.remaining_sets = self.set_container.remaining_sets()
         return self.remaining_sets
     
-    def reroll_dice(self, n_rerolls=2) -> list:
+    def reroll_dice(self) -> list:
         "Reroll the dice and returns a list representing the new dice roll"
         # Analyze the last strike
         self.last_strike_analysis = self.analyze_strike()
@@ -137,6 +144,7 @@ class ComputerPlayer:
 
         # Analyze the last strike
         self.last_strike_analysis = self.analyze_strike()
+
         
 
         # Get the possible sets for the last dice roll
