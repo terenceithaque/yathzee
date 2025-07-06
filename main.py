@@ -193,7 +193,7 @@ def play():
 
                 max_rerolls = 2 # Number of rerolls the computer can do
 
-
+                print("Set that might be ignored :", computer_player.decide_ignore())
                 
 
                 #print(computer_player.analyze_strike())
@@ -218,6 +218,7 @@ def play():
                         time.sleep(1)
                         dice_set, score = computer_player.decide_strike()
                         print("New decision :", dice_set)
+                        print("Set that might be ignored :", computer_player.decide_ignore())
                         time.sleep(1)
 
                     else:
@@ -226,7 +227,7 @@ def play():
 
                 
 
-                # Backup condition if the computer failed to decide a remaining set within 2 dice rolls
+                # Fallback condition if the computer failed to decide a remaining set within 2 dice rolls
                 if dice_set not in computer_player.set_container.remaining_sets():
                     # If at least one set is doable
                     if len(doable_sets) >= 1:

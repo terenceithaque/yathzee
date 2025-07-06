@@ -129,8 +129,26 @@ class ComputerPlayer:
     
 
     def decide_ignore(self) -> str:
-        "Decide which strike should be ignored based on last dice roll and completed sets"
- 
+        "Decide which strike should be ignored based on last dice roll and remaining sets. If no condition match, just returns 'aces' by default."
+
+        # Analyze the last strike
+        self.last_strike_analysis = self.analyze_strike()
+        
+
+        # Get the possible sets for the last dice roll
+        sets_for_last = possible_sets(self.last_dice_roll)
+
+        # Filter the possible sets with those that the computer still have to do
+        sets = {dice_set:condition for dice_set, condition in zip(sets_for_last.keys(),sets_for_last.values()) if dice_set in self.set_container.remaining_sets()}
+
+        # Get the name of the set with max potential score
+        max_score_set = get_max_potential_score_set(self.last_dice_roll)[0]
+
+        if max_score_set in sets.keys():
+            if self.set_container.content[max_score_set] == 0:
+                return max_score_set
+            
+        return "aces"    
 
     def decide_strike(self) -> tuple:
         "Decide which is the best strike to do next according to various parameters"
