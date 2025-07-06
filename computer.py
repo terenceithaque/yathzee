@@ -35,7 +35,7 @@ class ComputerPlayer:
     def analyze_strike(self):
         "Analyze the last strike and updates the last strike analyzing dict"
         self.last_strike_analysis = all_dice_occurences(self.last_dice_roll)
-        print("Occurences of all dice :", self.last_strike_analysis)
+        #print("Occurences of all dice :", self.last_strike_analysis)
         return self.last_strike_analysis
     
     def update_score(self):
@@ -89,6 +89,7 @@ class ComputerPlayer:
 
         chances_values = chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values))
         print("Chances to redo frequent values :", chances_values)
+        print("Probability to redo the exact same dice roll :", probability_dice_roll(frequent_values, occurences_frequent, 5 - len(frequent_values)))
         # Keep only values with max chance to reappear
         middle_chance = max(chances_values.values()) // 2
         print("Middle chance :", middle_chance)
@@ -124,6 +125,9 @@ class ComputerPlayer:
 
 
         self.last_dice_roll = copy(final_dice)
+
+        
+
 
         return self.last_dice_roll
     
@@ -194,7 +198,7 @@ class ComputerPlayer:
         print("Potential sets for the most frequent values :", filtered_sets)
 
         set, score = get_max_potential_score_set(self.last_dice_roll)
-        print("Set with max potential score :", set)
+        #print("Set with max potential score :", set)
 
         strike = set
         return (strike, score)

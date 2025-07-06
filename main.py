@@ -188,8 +188,8 @@ def play():
                 computer_player.last_dice_roll = dice_roll(5, [])
                 time.sleep(1)
                 print("Computer roll :", computer_player.last_dice_roll)
-
-                print("Remaining sets for the computer: ", computer_player.set_container.remaining_sets())
+                
+                #print("Remaining sets for the computer: ", computer_player.set_container.remaining_sets())
 
                 max_rerolls = 2 # Number of rerolls the computer can do
 

@@ -35,7 +35,7 @@ def values_with_n_occ(dice_list:list, n=1) -> list:
 
 
 
-def chances_dices_values(dice_vals:list, occurences:list, n_rerolls=2) -> int:
+def chances_dices_values(dice_vals:list, occurences:list, n_rerolls=2) -> dict:
     """Returns a dictionnary containing each dice value in dice_vals and the chance to obtain it using the occurences list and math.comb(). The final values are rounded.
     - dice_vals: list of dice values
     - occurences: list of occurences for the dice values
@@ -51,7 +51,21 @@ def chances_dices_values(dice_vals:list, occurences:list, n_rerolls=2) -> int:
         # ** (n_rerolls - n_occ)
         chances_values[dice_val] = round(math.comb(n_rerolls, n_occ) * (1 / 6)**n_occ * (5/6)**(n_rerolls - n_occ), 1)
 
-    return chances_values    
+    return chances_values
+
+
+def probability_dice_roll(dice_roll:list, occurences:list, n_rerolls=2) -> float:
+    "Calculates the probabillity to redo the exact same dice roll. Returns a float between 0 and 1."
+
+    prob = 0.0
+
+    # Get the chances for each dice value in the dice roll
+    chances_values = chances_dices_values(dice_roll, occurences, n_rerolls)
+    chances = chances_values.values()
+    # Get the product of all chances
+    prob = math.prod(chances)
+
+    return prob
 
 
 def chance_to_get_value(dice_val:int, n:int, n_rerolls=2) -> int:
