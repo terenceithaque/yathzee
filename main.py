@@ -76,11 +76,12 @@ def play():
     while not (player_finished and computer_finished):
         # If the turn is to the player
 
-        print()
+        
 
         # If the player haven't completed all his sets
         if not player_finished:
             if player.turn:
+                print()
 
                 player.reinitialize_reroll_counter() # Reinitialize the max reroll counter to 2
 
@@ -185,6 +186,8 @@ def play():
         # If the turn is to the computer
         if not computer_finished:
             if computer_player.turn:
+                print()
+
                 print("Your computer is playing...")
                 computer_player.last_dice_roll = dice_roll(5, [])
                 time.sleep(1)
@@ -194,13 +197,15 @@ def play():
 
                 computer_player.reinitialize_reroll_counter() # Reinitiaalize the reroll counter to 2
 
-                print("Set that might be ignored :", computer_player.decide_ignore())
+                
                 
 
                 #print(computer_player.analyze_strike())
 
                 # Decide the next strike to do
                 dice_set, score = computer_player.decide_strike()
+
+                print("Set that might be ignored :", computer_player.decide_ignore())
 
                 #computer_player.reroll_dice()
 
