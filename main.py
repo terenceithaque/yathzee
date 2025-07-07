@@ -183,7 +183,7 @@ def play():
         else:
             print("You completed all your dice sets.")
             time.sleep(1)
-            #change_turn(player, computer_player)     
+            change_turn(player, computer_player)     
 
         # If the turn is to the computer
         if not computer_finished:
