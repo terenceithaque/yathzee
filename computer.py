@@ -161,7 +161,17 @@ class ComputerPlayer:
 
 
 
+        # Summarize the scores for the last dice roll
+        score_summary = summarize_potential_scores(self.last_dice_roll)
 
+        # Iterate over each dice set in the score summary
+        for dice_set in score_summary.keys():
+            # If the dice set won't probably reappear
+            if dice_set in sets:
+                # If the potential score for the dice set is the lowest available
+                if score_summary[dice_set] == min(score_summary.values()):
+                    # Then ignore that set
+                    return dice_set
         
         # Return a random dice set    
         return random.choice(sets)    
