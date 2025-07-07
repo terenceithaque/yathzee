@@ -174,6 +174,7 @@ def play():
 
                 print("Your score :", player.total_score)
                 player_finished = player.set_container.is_complete()
+                print("Player finished :", player_finished)
 
                 change_turn(player, computer_player)
 
@@ -181,7 +182,8 @@ def play():
 
         else:
             print("You completed all your dice sets.")
-            time.sleep(1)     
+            time.sleep(1)
+            #change_turn(player, computer_player)     
 
         # If the turn is to the computer
         if not computer_finished:
@@ -247,7 +249,7 @@ def play():
                     else:
                         # Give the turn to the player
                         print("Computer is unable to do a set, skipping turn.")
-                        change_turn(player, computer_player)
+                        #change_turn(player, computer_player)
                         pass    
 
                     
@@ -279,6 +281,31 @@ def play():
             print("Computer completed all his dice sets.")
             time.sleep(1)       
 
+    print()
+
+    # Display the final game boards
+    print("Game finished !")
+    print("Your game :", end=" ")
+    player.set_container.display()
+    print()
+
+    print("Computer game :", end = " ")
+    computer_player.set_container.display()
+    print()
+
+
+    # Final score check
+    if player.total_score > computer_player.total_score:
+        print("You won !")
+
+    elif computer_player.total_score > player.total_score:
+        print("Computer won !")
+
+    # Strict equality
+    else:
+        print("Strict equality !")
+
+    return            
 
 
 # Start the game

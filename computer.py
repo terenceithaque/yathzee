@@ -176,6 +176,7 @@ class ComputerPlayer:
         # Return a random dice set    
         return random.choice(sets)    
 
+
     def decide_strike(self) -> tuple:
         "Decide which is the best strike to do next according to various parameters"
 
