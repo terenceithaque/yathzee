@@ -50,7 +50,7 @@ class Player:
         keep_values = input("Enter the dice values you want to keep, separated by a comma :")
 
         # If the player wants to reroll all dice
-        if keep_values == "all":
+        if keep_values == "nothing":
              self.last_dice_roll = dice_roll(5)
              self.possible_sets = possible_sets(self.last_dice_roll)
              print("New dice roll :", self.last_dice_roll)
