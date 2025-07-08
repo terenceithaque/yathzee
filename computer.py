@@ -243,6 +243,7 @@ class ComputerPlayer:
             else:
                 # Fallback : pick a set to ignore
                 strike = self.decide_ignore()
+                print(f"Ignoring {strike}")
                 self.set_container.ignore(strike)
                 score = 0    
 

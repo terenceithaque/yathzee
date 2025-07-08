@@ -299,6 +299,9 @@ def play():
     print()
 
 
+    print("Your total score :", player.total_score)
+    print("Computer total score :", computer_player.total_score)
+
     # Final score check
     if player.total_score > computer_player.total_score:
         print("You won !")
