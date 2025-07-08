@@ -108,7 +108,6 @@ class ComputerPlayer:
                 max_chances_vals.append(val)
                 
         print("Values with max chances :", max_chances_vals)
-        sets_list = list(sets.keys())
 
         # Keep values with max chance to reroll
         keep_values = copy(max_chances_vals)
@@ -182,49 +181,74 @@ class ComputerPlayer:
 
         strike = "" # Next set to do
 
+
         # Analyze the last strike
         self.last_strike_analysis = self.analyze_strike()
 
         # Get the dice sets did by the computer
         self.remaining_sets = self.update_remaining_sets()
 
-        # Get possible dice sets
-        self.possible_sets = possible_sets(self.last_dice_roll)
+        # If only one set is remaining
+        if len(self.remaining_sets) == 1:
+            # Pick this one
+            set = self.remaining_sets[0]
+            score = summarize_potential_scores(self.last_dice_roll)[set]
+            return set, score
 
-        #print("Possible sets for the computer :", self.possible_sets)
+        # If several sets are available
+        else:
+            # Get possible dice sets
+            self.possible_sets = possible_sets(self.last_dice_roll)
 
-        # List the most frequent dice values in the last dice roll
-        occurences_values = self.last_strike_analysis.values()
+            #print("Possible sets for the computer :", self.possible_sets)
 
-        # We consider that the most frequent values are those with occurences in the superior half
-        frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
-                           if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
-        
-        occurences_frequent = [self.last_strike_analysis[dice_val]for dice_val in self.last_strike_analysis.keys() if self.last_strike_analysis[dice_val]
-                               in range(max(occurences_values) // 2, max(occurences_values) + 1)]
-        
-        print("Most frequent values in the last computer roll :", frequent_values)
-        print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values)))
-        # Get possible sets for the most frequent values
-        potential_sets = []
-        filtered_sets = []
-        for dice_val in frequent_values:
-            potential_sets.extend(sets_for_value(dice_val))
+            # List the most frequent dice values in the last dice roll
+            occurences_values = self.last_strike_analysis.values()
 
-         
+            # We consider that the most frequent values are those with occurences in the superior half
+            frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
+                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
+            
+            occurences_frequent = [self.last_strike_analysis[dice_val]for dice_val in self.last_strike_analysis.keys() if self.last_strike_analysis[dice_val]
+                                in range(max(occurences_values) // 2, max(occurences_values) + 1)]
+            
+            print("Most frequent values in the last computer roll :", frequent_values)
+            print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values)))
+            # Get possible sets for the most frequent values
+            potential_sets = []
+            filtered_sets = []
+            for dice_val in frequent_values:
+                potential_sets.extend(sets_for_value(dice_val))
 
-        # Filter sets to make them appear only one time in the list
-        for dice_set in potential_sets:
-            if (potential_sets.count(dice_set) ==1) and (dice_set in self.possible_sets or dice_set in self.set_container.remaining_sets()):
-                filtered_sets.append(dice_set)
+            
 
-        print("Potential sets for the most frequent values :", filtered_sets)
+            # Filter sets to make them appear only one time in the list
+            for dice_set in potential_sets:
+                if (potential_sets.count(dice_set) ==1) and (dice_set in self.possible_sets and dice_set in self.remaining_sets):
+                    filtered_sets.append(dice_set)
 
-        set, score = get_max_potential_score_set(self.last_dice_roll)
-        #print("Set with max potential score :", set)
+            print("Potential sets for the most frequent values :", filtered_sets)
 
-        strike = set
-        return (strike, score)
+            score_summary = summarize_potential_scores(self.last_dice_roll)
+
+            set, score = get_max_potential_score_set(self.last_dice_roll)
+            #print("Set with max potential score :", set)
+            valid_sets = [dice_set for dice_set in self.possible_sets if dice_set in self.remaining_sets]
+            if valid_sets:
+                # Select the set with the highest potential score
+                best_set = max(valid_sets, key=lambda s: score_summary[s])
+                score = score_summary[best_set]
+                strike = best_set
+
+            else:
+                # Fallback : pick a set to ignore
+                strike = self.decide_ignore()
+                self.set_container.ignore(strike)
+                score = 0    
+
+
+            strike = set
+            return (strike, score)
 
 
 

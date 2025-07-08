@@ -117,7 +117,7 @@ def play():
 
 
                 # If the player has several sets  to do and that some of them are doable
-                doable_sets = list(dice_set for dice_set in player.possible_sets if dice_set in player.remaining_sets)
+                doable_sets = list(dice_set for dice_set in player.possible_sets if dice_set in player.set_container.remaining_sets())
                 if len(player.possible_sets.keys()) > 1 and len(doable_sets) >= 1:
                     print(f"You must choose between {doable_sets}")
                     
@@ -212,7 +212,7 @@ def play():
                 #computer_player.reroll_dice()
 
                 # List of doable sets
-                doable_sets = list(dice_set for dice_set in computer_player.possible_sets if dice_set in computer_player.remaining_sets)
+                doable_sets = list(dice_set for dice_set in computer_player.possible_sets if dice_set in computer_player.set_container.remaining_sets())
 
                 # Ensure the chosen set wasn't done before
                 while dice_set not in computer_player.set_container.remaining_sets():
@@ -232,7 +232,8 @@ def play():
                     else:
                         
                         break    
-
+                    
+                    #computer_player.update_remaining_sets()
                 
 
                 # Fallback condition if the computer failed to decide a remaining set within 2 dice rolls
@@ -243,13 +244,14 @@ def play():
                         dice_set = random.choice(doable_sets)
                         score = summarize_potential_scores(computer_player.last_dice_roll)[dice_set]
                         print("New decision :", dice_set)
+                        #computer_player.update_remaining_sets()
                         time.sleep(1)
 
                     # If no set is doable
                     else:
                         # Give the turn to the player
                         print("Computer is unable to do a set, skipping turn.")
-                        #change_turn(player, computer_player)
+                        change_turn(player, computer_player)
                         pass    
 
                     
@@ -259,6 +261,7 @@ def play():
                 print("The computer chose ", dice_set)
                 time.sleep(1)
                 computer_player.set_container.update(dice_set, score)
+                computer_player.update_remaining_sets()
                 #print(computer_player.set_container.content)
                 print("Computer game board:")
                 computer_player.set_container.display()
@@ -270,7 +273,8 @@ def play():
 
                 print("Your computer's score :", computer_player.total_score)
 
-                computer_finished = computer_player.set_container.is_complete() 
+                computer_finished = computer_player.set_container.is_complete()
+                print("Computer finished :", computer_finished) 
 
 
                 change_turn(player, computer_player)
@@ -279,7 +283,8 @@ def play():
 
         else:
             print("Computer completed all his dice sets.")
-            time.sleep(1)       
+            time.sleep(1)
+            change_turn(player, computer_player)       
 
     print()
 
