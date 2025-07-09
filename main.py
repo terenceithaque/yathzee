@@ -39,13 +39,13 @@ def play():
     # The player must press enter to start playing
     entry = input("Please press enter to start the game (type 'load' to load save): ")
     # If the player typed 'load'
-    if entry == "load":
+    if entry.strip().lower() == "load":
         # Load the save
         data = load()
         player_data = data["player"]
-        print("Player data :", player_data)
+        #print("Player data :", player_data)
         computer_data = data["computer"]
-        print("Computer data :", computer_data)
+        #print("Computer data :", computer_data)
 
         # Get the scores
         player.total_score = player_data["score"]
