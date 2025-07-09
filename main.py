@@ -37,7 +37,27 @@ def play():
     player = Player()
     computer_player = ComputerPlayer()
     # The player must press enter to start playing
-    input("Please press enter to start the game: ")
+    entry = input("Please press enter to start the game (type 'load' to load save): ")
+    # If the player typed 'load'
+    if entry == "load":
+        # Load the save
+        data = load()
+        player_data = data["player"]
+        print("Player data :", player_data)
+        computer_data = data["computer"]
+        print("Computer data :", computer_data)
+
+        # Get the scores
+        player.total_score = player_data["score"]
+        computer_player.total_score = computer_data["score"]
+
+        # Get the content of the set containers
+        player.set_container.content = player_data["set_container_content"]
+        computer_player.set_container.content = computer_data["set_container_content"]
+
+        # Get the remaining sets
+        player.remaining_sets = player_data["remaining_sets"]
+        computer_player.remaining_sets = computer_data["remaining_sets"]
 
 
 
