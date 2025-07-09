@@ -5,7 +5,7 @@ import player
 import computer
 
 def save(player:player.Player, computer:computer.ComputerPlayer) -> None:
-    "Save the data from player and computer into a save.json file."
+    "Save the data from player and computer into a save.json file located in the current script directory."
 
     # JSON data structure
     data = {
@@ -33,7 +33,9 @@ def save(player:player.Player, computer:computer.ComputerPlayer) -> None:
 
 
 def load() -> dict:
-    "Loads the data inside save.json and makes it accessible to the program."
+    """Loads the data inside save.json and makes it accessible to the program.
+    If loading fails, returns a default data with empty values to start the game cleanly.
+    """
 
     # Default data
     data = {
