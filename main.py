@@ -126,7 +126,7 @@ def play():
                     # Ask the player which dice set he wants to complete
                     dice_set = player.ask_set()
 
-                    if dice_set != "ignore" or dice_set != "save":
+                    if dice_set != "ignore" and dice_set != "save":
                         # Get a summary of the potential scores and extract the score for the chosen dice set
                         scores_summary = summarize_potential_scores(player.last_dice_roll)
                         score = scores_summary[dice_set]
