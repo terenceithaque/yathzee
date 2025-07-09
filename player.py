@@ -144,7 +144,6 @@ class Player:
         # Ask the player for the name of the set to be completed
         dice_set = input("Which dice set do you want to complete ? ")
 
-
         # If the player wants to ignore a set
         if dice_set == "ignore":
              self.ask_ignore()       

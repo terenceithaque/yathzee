@@ -5,6 +5,8 @@ from set import *
 from player import *
 from computer import *
 import time
+from save import *
+
 
 def ask_reroll() -> bool:
     """Ask the player if he wants to reroll his dice.
@@ -76,7 +78,7 @@ def play():
     while not (player_finished and computer_finished):
         # If the turn is to the player
 
-        
+        save(player, computer_player)
 
         # If the player haven't completed all his sets
         if not player_finished:
@@ -124,7 +126,7 @@ def play():
                     # Ask the player which dice set he wants to complete
                     dice_set = player.ask_set()
 
-                    if dice_set != "ignore":
+                    if dice_set != "ignore" or dice_set != "save":
                         # Get a summary of the potential scores and extract the score for the chosen dice set
                         scores_summary = summarize_potential_scores(player.last_dice_roll)
                         score = scores_summary[dice_set]
