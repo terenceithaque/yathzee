@@ -36,6 +36,8 @@ def play():
 
     player = Player()
     computer_player = ComputerPlayer()
+    
+
     # The player must press enter to start playing
     entry = input("Please press enter to start the game (type 'load' to load save): ")
     # If the player typed 'load'
@@ -58,6 +60,10 @@ def play():
         # Get the remaining sets
         player.remaining_sets = player_data["remaining_sets"]
         computer_player.remaining_sets = computer_data["remaining_sets"]
+
+        # Ending states
+        player.finished = player_data["finished"]
+        computer_player.finished = computer_data["finished"]
 
 
 
@@ -89,19 +95,17 @@ def play():
         computer_player.turn = True
 
 
-    # Variables to track if the player and the computer completed all their sets
-    player_finished = False
-    computer_finished = False    
+       
 
 
     # Enter the main loop
-    while not (player_finished and computer_finished):
+    while not (player.finished and computer_player.finished):
         # If the turn is to the player
 
         save(player, computer_player)
 
         # If the player haven't completed all his sets
-        if not player_finished:
+        if not player.finished:
             if player.turn:
                 print()
 
@@ -195,8 +199,8 @@ def play():
                 player.update_score()
 
                 print("Your score :", player.total_score)
-                player_finished = player.set_container.is_complete()
-                print("Player finished :", player_finished)
+                player.finished = player.set_container.is_complete()
+                print("Player finished :", player.finished)
 
                 change_turn(player, computer_player)
 
@@ -208,7 +212,7 @@ def play():
             change_turn(player, computer_player)     
 
         # If the turn is to the computer
-        if not computer_finished:
+        if not computer_player.finished:
             if computer_player.turn:
                 print()
 
@@ -295,8 +299,8 @@ def play():
 
                 print("Your computer's score :", computer_player.total_score)
 
-                computer_finished = computer_player.set_container.is_complete()
-                print("Computer finished :", computer_finished) 
+                computer_player.finished = computer_player.set_container.is_complete()
+                print("Computer finished :", computer_player.finished) 
 
 
                 change_turn(player, computer_player)

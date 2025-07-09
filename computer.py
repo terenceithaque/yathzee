@@ -26,6 +26,8 @@ class ComputerPlayer:
         # Number of rerolls for the computer
         self.max_rerolls = 2
 
+        self.finished = False
+
         self.remaining_sets = self.set_container.remaining_sets()
 
 

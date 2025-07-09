@@ -26,6 +26,8 @@ class Player:
 
         self.possible_sets =  {}
 
+        self.finished = False
+
 
         self.remaining_sets = self.set_container.remaining_sets()
 
