@@ -233,7 +233,7 @@ def play():
                 # Decide the next strike to do
                 dice_set, score = computer_player.decide_strike()
 
-                print("Set that might be ignored :", computer_player.decide_ignore())
+                #print("Set that might be ignored :", computer_player.decide_ignore())
 
                 #computer_player.reroll_dice()
 
@@ -252,7 +252,7 @@ def play():
                         time.sleep(1)
                         dice_set, score = computer_player.decide_strike()
                         print("New decision :", dice_set)
-                        print("Set that might be ignored :", computer_player.decide_ignore())
+                        #print("Set that might be ignored :", computer_player.decide_ignore())
                         time.sleep(1)
 
                     else:
