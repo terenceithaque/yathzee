@@ -64,10 +64,17 @@ class Player:
                 keep_values = input("Enter the dice values you want to keep, separated by a comma :")
 
             # The dice values must be 1, 2, 3, 4, 5 or 6
-            while not all([value in ["1", "2", "3", "4", "5", "6"]] for value in keep_values.split(",")) :
+            while not all([value in "1", "2", "3", "4", "5", "6"] for value in keep_values.split(",")) :
                 keep_values = input("Enter the dice values you want to keep, separated by a comma :")
                     
             keep_values = [int(value) for value in keep_values.split(",")]
+
+            # Ensure all entered values are in the last dice roll
+            while not all(value in self.last_dice_roll for value in keep_values):
+                keep_values = input("Enter the dice values you want to keep, separated by a comma :")
+                keep_values = [int(value) for value in keep_values.split(",")]
+
+
 
             # Number of dice to reroll
             n_dice = 5 - len(keep_values)
