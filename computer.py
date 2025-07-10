@@ -70,7 +70,7 @@ class ComputerPlayer:
         self.remaining_sets = self.set_container.remaining_sets()
         return self.remaining_sets
     
-    def reroll_dice(self) -> list:
+    def reroll_dice(self, debug=False) -> list:
         "Reroll the dice and returns a list representing the new dice roll"
         # Analyze the last strike
         self.last_strike_analysis = self.analyze_strike()
@@ -97,19 +97,23 @@ class ComputerPlayer:
         # Convert the remaining sets into list
 
         chances_values = chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values))
-        print("Chances to redo frequent values :", chances_values)
-        print("Probability to redo the exact same dice roll :", probability_dice_roll(frequent_values, occurences_frequent, 5 - len(frequent_values)))
+        if debug:
+            print("Chances to redo frequent values :", chances_values)
+            print("Probability to redo the exact same dice roll :", probability_dice_roll(frequent_values, occurences_frequent, 5 - len(frequent_values)))
         # Keep only values with max chance to reappear
         middle_chance = max(chances_values.values()) // 2
-        print("Middle chance :", middle_chance)
         max_chance = max(chances_values.values())
-        print("Max chance :", max_chance)
+        if debug:
+            print("Middle chance :", middle_chance)
+            print("Max chance :", max_chance)
+
         max_chances_vals = []
         for val in chances_values.keys():
             if middle_chance <= chances_values[val] and chances_values[val] <= max_chance:
                 max_chances_vals.append(val)
-                
-        print("Values with max chances :", max_chances_vals)
+        
+        if debug:
+            print("Values with max chances :", max_chances_vals)
 
         # Keep values with max chance to reroll
         keep_values = copy(max_chances_vals)
@@ -125,7 +129,8 @@ class ComputerPlayer:
 
         # Extend the final dice roll with the kept dice values
         final_dice.extend(keep_values)
-        print("Final dice roll (extended with keep_values):", final_dice)
+        if debug:
+            print("Final dice roll (extended with keep_values):", final_dice)
 
 
         # And then add new dice values to it in order to reroll
@@ -178,7 +183,7 @@ class ComputerPlayer:
         return random.choice(sets)    
 
 
-    def decide_strike(self) -> tuple:
+    def decide_strike(self, debug=False) -> tuple:
         "Decide which is the best strike to do next according to various parameters"
 
         strike = "" # Next set to do
@@ -214,8 +219,10 @@ class ComputerPlayer:
             occurences_frequent = [self.last_strike_analysis[dice_val]for dice_val in self.last_strike_analysis.keys() if self.last_strike_analysis[dice_val]
                                 in range(max(occurences_values) // 2, max(occurences_values) + 1)]
             
-            print("Most frequent values in the last computer roll :", frequent_values)
-            print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values)))
+
+            if debug:
+                print("Most frequent values in the last computer roll :", frequent_values)
+                print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values)))
             # Get possible sets for the most frequent values
             potential_sets = []
             filtered_sets = []
@@ -229,7 +236,8 @@ class ComputerPlayer:
                 if (potential_sets.count(dice_set) ==1) and (dice_set in self.possible_sets and dice_set in self.remaining_sets):
                     filtered_sets.append(dice_set)
 
-            print("Potential sets for the most frequent values :", filtered_sets)
+            if debug:
+                print("Potential sets for the most frequent values :", filtered_sets)
 
             score_summary = summarize_potential_scores(self.last_dice_roll)
 
