@@ -10,6 +10,7 @@ def save(player:player.Player, computer:computer.ComputerPlayer) -> None:
     # JSON data structure
     data = {
         "player" : {
+            "turn": player.turn,
             "finished": player.finished,
             "score" : player.total_score,
             "set_container_content": player.set_container.content,
@@ -17,6 +18,7 @@ def save(player:player.Player, computer:computer.ComputerPlayer) -> None:
         },
 
         "computer" : {
+            "turn": computer.turn,
             "finished":computer.finished,
             "score" : computer.total_score,
             "set_container_content" : computer.set_container.content,
@@ -42,6 +44,7 @@ def load() -> dict:
     # Default data
     data = {
         "player" : {
+            "turn": True,
             "finished": False,
             "score" : 0,
             "set_container_content":{
@@ -79,6 +82,7 @@ def load() -> dict:
         },
 
         "computer" : {
+            "turn": False,
             "finished" : False,
             "score" : 0,
             "set_container_content":{
