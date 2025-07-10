@@ -245,6 +245,11 @@ def play():
                 # Decide the next strike to do
                 dice_set, score = computer_player.decide_strike()
 
+                # Change turn immediatly if the computer decided to ignore a set
+                if computer_player.has_ignored:
+                    change_turn(player, computer_player)
+                    computer_player.has_ignored = False
+
                 #print("Set that might be ignored :", computer_player.decide_ignore())
 
                 #computer_player.reroll_dice()
@@ -266,6 +271,10 @@ def play():
                         print("New decision :", dice_set)
                         #print("Set that might be ignored :", computer_player.decide_ignore())
                         time.sleep(1)
+                        # Change turn immediatly if the computer decided to ignore a set
+                        if computer_player.has_ignored:
+                            change_turn(player, computer_player)
+                            computer_player.has_ignored = False
 
                     else:
                         

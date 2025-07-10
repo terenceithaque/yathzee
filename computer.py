@@ -37,6 +37,9 @@ class ComputerPlayer:
         # Dict to analyze the last strike (get the number of occurences for each dice)
         self.last_strike_analysis = {}
 
+        # Variable to know if the computer ignored a set on the last turn
+        self.has_ignored = False
+
     def reinitialize_reroll_counter(self):
         "Reinitialize the max reroll counter to 2."
         self.max_rerolls = 2    
@@ -255,7 +258,8 @@ class ComputerPlayer:
                 strike = self.decide_ignore()
                 print(f"Ignoring {strike}")
                 self.set_container.ignore(strike)
-                score = 0    
+                score = 0
+                self.has_ignored = True    
 
 
             strike = set
