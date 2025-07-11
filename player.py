@@ -76,6 +76,12 @@ class Player:
                 keep_values = input("Enter the dice values you want to keep, separated by a comma :")
                 keep_values = [int(value) for value in keep_values.split(",")]
 
+            # Ensure the number of occurences of each value cannot exceed its number of occurences in the last dice roll
+            while any(occurences(keep_values, value) > occurences(self.last_dice_roll, value) for value in keep_values):
+                print("Cannot keep values with more occurences than in the last dice roll.")
+                keep_values = input("Enter the dice values you want to keep, separated by a comma :")
+                keep_values = [int(value) for value in keep_values.split(",")]    
+
 
 
             # Number of dice to reroll
