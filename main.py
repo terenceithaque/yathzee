@@ -84,6 +84,7 @@ def play():
 
         # Determine if the player or the computer play first
         print("Rolling dice to determine who begins...")
+        time.sleep(1)
         computer_player.last_dice_roll= dice_roll(5, [])
         player.last_dice_roll = dice_roll(5, [])
     
