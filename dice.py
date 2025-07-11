@@ -1,6 +1,5 @@
 "dice.py allows dice handling in the game"
 import random
-import copy
 import math
 
 
@@ -55,7 +54,7 @@ def chances_dices_values(dice_vals:list, occurences:list, n_rerolls=2) -> dict:
 
 
 def probability_dice_roll(dice_roll:list, occurences:list, n_rerolls=2) -> float:
-    "Calculates the probabillity to redo the exact same dice roll. Returns a float between 0 and 1."
+    "Calculates the probability to redo the exact same dice roll. Returns a float between 0 and 1."
 
     prob = 0.0
 
@@ -86,7 +85,7 @@ def chance_to_get_value(dice_val:int, n:int, n_rerolls=2) -> int:
 
 
 def new_dice() -> int:
-    """Generate a random dice value bteween 1 and 6"""
+    """Generate a random dice value between 1 and 6"""
     return random.randint(1,6)
 
 
