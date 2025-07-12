@@ -97,12 +97,28 @@ class SetContainer:
         remaining = [dice_set for dice_set in self.content.keys() if self.content[dice_set] == 0]
         return remaining
     
+    def upper_section_score(self) -> int:
+        """Returns the total score for the upper sets section.
+        The upper sets section refers to aces, twos, threes, fours, fives and sixes"""
+
+        # Upper sets section
+        upper_section = ["aces", "twos", "threes", "fours", "fives", "sixes"]
+        # Get the scores for each set in the upper section
+        scores = [self.content[set_name] for set_name in upper_section if self.content[set_name] != "ignored"]
+
+        # Return the sum of all scores
+        return sum(scores)
+    
     def ignore(self, dice_set:str):
         "Defines a dice set as ignored (not equal to 0 in score but simply to be skipped)"
 
         # Assertions
         assert (type(dice_set).__name__ == "str"), "The set must be a valid string."
         assert (dice_set in self.content.keys()), "Cannot define an unknown dice set as ignored"
+
+        # End the function here if the dice set is already used or ignored
+        if dice_set not in self.remaining_sets():
+            return
 
         self.content[dice_set] = "ignored"
     

@@ -248,8 +248,9 @@ def play():
 
                 # Change turn immediatly if the computer decided to ignore a set
                 if computer_player.has_ignored:
-                    change_turn(player, computer_player)
-                    computer_player.has_ignored = False
+                        computer_player.set_container.ignore(dice_set)
+                        change_turn(player, computer_player)
+                        computer_player.has_ignored = False
 
                 #print("Set that might be ignored :", computer_player.decide_ignore())
 
@@ -274,6 +275,7 @@ def play():
                         time.sleep(1)
                         # Change turn immediatly if the computer decided to ignore a set
                         if computer_player.has_ignored:
+                            computer_player.set_container.ignore(dice_set)
                             change_turn(player, computer_player)
                             computer_player.has_ignored = False
 
@@ -289,8 +291,12 @@ def play():
                     # If at least one set is doable
                     if len(doable_sets) >= 1:
                         print("No remaining rerolls, choosing another set.")
-                        dice_set = random.choice(doable_sets)
-                        score = summarize_potential_scores(computer_player.last_dice_roll)[dice_set]
+                        score_summary = summarize_potential_scores(computer_player.last_dice_roll)
+                        # Get the best available set
+                        best_set = max(doable_sets, key=lambda set: score_summary[set])
+                        dice_set = best_set
+                        score = score_summary[dice_set]
+
                         print("New decision :", dice_set)
                         #computer_player.update_remaining_sets()
                         time.sleep(1)
@@ -300,7 +306,7 @@ def play():
                         # Give the turn to the player
                         print("Computer is unable to do a set, skipping turn.")
                         change_turn(player, computer_player)
-                        pass    
+                            
 
                     
 
@@ -345,6 +351,19 @@ def play():
     print("Computer game :", end = " ")
     computer_player.set_container.display()
     print()
+
+    # Bonus if the player made a total score of at least 63 in the upper sets section
+    player_upper_section_score = player.set_container.upper_section_score()
+    if player_upper_section_score >= 63:
+        print(f"You made a score of {player_upper_section_score}, and you win 35 bonus points.")
+        player.total_score += 35
+
+    # Same for the computer
+    computer_upper_section_score = computer_player.set_container.upper_section_score()
+    if computer_upper_section_score >= 63:
+        print(f"The computer made a score of {computer_upper_section_score}, and wins 35 bonus points.")
+        computer_player.total_score += 35    
+
 
 
     print("Your total score :", player.total_score)

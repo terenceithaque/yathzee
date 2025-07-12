@@ -254,11 +254,7 @@ class ComputerPlayer:
                 strike = best_set
 
             else:
-                # Fallback : pick a set to ignore
-                strike = self.decide_ignore()
-                print(f"Ignoring {strike}")
-                self.set_container.ignore(strike)
-                score = 0
+                # Fallback : ignore a set
                 self.has_ignored = True    
 
 
