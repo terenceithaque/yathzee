@@ -30,4 +30,4 @@ And now special sets:
     - Chance: the sum of all five dice. Works a bit like a joker.
 
 
-When the game ends, the player and the computer must count both their regular set points and their special set points. The total points are regular set points  + sepcial set points.
+When the game ends, the player and the computer must count both their regular set points and their special set points. The total points are regular set points  + sepcial set points + 35 bonus points (if the total of regular set points is superior or equal to 63).
