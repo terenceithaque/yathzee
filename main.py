@@ -195,7 +195,7 @@ def play():
                     
                     # If he can't, then skip the turn
                     else:
-                        print("You're unable to do the last set for now.")
+                        print("You're unable to do any set for now.")
                         time.sleep(1)
 
 
@@ -234,7 +234,7 @@ def play():
                 time.sleep(1)
                 print("Computer roll :", computer_player.last_dice_roll)
                 
-                #print("Remaining sets for the computer: ", computer_player.set_container.remaining_sets())
+                print("Remaining sets for the computer: ", computer_player.set_container.remaining_sets())
 
                 computer_player.reinitialize_reroll_counter() # Reinitiaalize the reroll counter to 2
 
@@ -246,11 +246,16 @@ def play():
                 # Decide the next strike to do
                 dice_set, score = computer_player.decide_strike()
 
+
+                if dice_set != "IGNORE" and dice_set not in computer_player.set_container.remaining_sets():
+                    dice_set = "IGNORE"
+
                 # Change turn immediatly if the computer decided to ignore a set
-                if computer_player.has_ignored:
-                        computer_player.set_container.ignore(dice_set)
+                if dice_set == "IGNORE":
+                        ignore_set = computer_player.decide_ignore()
+                        computer_player.set_container.ignore(ignore_set)
+                        dice_set = ignore_set
                         change_turn(player, computer_player)
-                        computer_player.has_ignored = False
 
                 #print("Set that might be ignored :", computer_player.decide_ignore())
 
@@ -266,6 +271,7 @@ def play():
                     if computer_player.max_rerolls > 0:
                         print("Computer is rerolling...")
                         computer_player.reroll_dice()
+                        computer_player.possible_sets = possible_sets(computer_player.last_dice_roll)
                         print("Computer roll :", computer_player.last_dice_roll)
                         computer_player.max_rerolls -= 1
                         time.sleep(1)
@@ -274,16 +280,17 @@ def play():
                         #print("Set that might be ignored :", computer_player.decide_ignore())
                         time.sleep(1)
                         # Change turn immediatly if the computer decided to ignore a set
-                        if computer_player.has_ignored:
-                            computer_player.set_container.ignore(dice_set)
+                        if dice_set == "IGNORE":
+                            ignore_set = computer_player.decide_ignore()
+                            computer_player.set_container.ignore(ignore_set)
+                            dice_set = ignore_set
                             change_turn(player, computer_player)
-                            computer_player.has_ignored = False
 
                     else:
                         
                         break    
                     
-                    #computer_player.update_remaining_sets()
+                    computer_player.update_remaining_sets()
                 
 
                 # Fallback condition if the computer failed to decide a remaining set within 2 dice rolls
@@ -354,12 +361,14 @@ def play():
 
     # Bonus if the player made a total score of at least 63 in the upper sets section
     player_upper_section_score = player.set_container.upper_section_score()
+    print("Your upper section score :", player_upper_section_score)
     if player_upper_section_score >= 63:
         print(f"You made a score of {player_upper_section_score}, and you win 35 bonus points.")
         player.total_score += 35
 
     # Same for the computer
     computer_upper_section_score = computer_player.set_container.upper_section_score()
+    print("Computer upper section score :", computer_upper_section_score)
     if computer_upper_section_score >= 63:
         print(f"The computer made a score of {computer_upper_section_score}, and wins 35 bonus points.")
         computer_player.total_score += 35    
@@ -367,6 +376,7 @@ def play():
 
 
     print("Your total score :", player.total_score)
+    
     print("Computer total score :", computer_player.total_score)
 
     # Final score check

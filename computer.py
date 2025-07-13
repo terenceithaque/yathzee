@@ -37,8 +37,7 @@ class ComputerPlayer:
         # Dict to analyze the last strike (get the number of occurences for each dice)
         self.last_strike_analysis = {}
 
-        # Variable to know if the computer ignored a set on the last turn
-        self.has_ignored = False
+        
 
     def reinitialize_reroll_counter(self):
         "Reinitialize the max reroll counter to 2."
@@ -183,13 +182,16 @@ class ComputerPlayer:
                     return dice_set
         
         # Return a random dice set    
-        return random.choice(sets)    
+        return random.choice(sets)
+
+
+    def get_valid_possible_sets(self) -> dict:
+        "Returns a dict containing only the valid possible sets by filtering them with the remaining sets."
+        return {s:cond for s, cond in self.possible_sets.items() if s in self.remaining_sets}    
 
 
     def decide_strike(self, debug=False) -> tuple:
         "Decide which is the best strike to do next according to various parameters"
-
-        strike = "" # Next set to do
 
 
         # Analyze the last strike
@@ -197,69 +199,38 @@ class ComputerPlayer:
 
         # Get the dice sets did by the computer
         self.remaining_sets = self.update_remaining_sets()
+        print("computer_player.remaining_sets :", self.remaining_sets)
+
+        # Get possible dice sets
+        self.possible_sets = possible_sets(self.last_dice_roll)
+
+        valid_sets = self.get_valid_possible_sets()
+        print("Valid sets :", valid_sets.keys())
 
         # If only one set is remaining
         if len(self.remaining_sets) == 1:
             # Pick this one
             set = self.remaining_sets[0]
-            score = summarize_potential_scores(self.last_dice_roll)[set]
-            return set, score
+            if set in valid_sets:
+                score = summarize_potential_scores(self.last_dice_roll)[set]
+                return set, score
 
         # If several sets are available
-        else:
-            # Get possible dice sets
-            self.possible_sets = possible_sets(self.last_dice_roll)
 
-            #print("Possible sets for the computer :", self.possible_sets)
+        
 
-            # List the most frequent dice values in the last dice roll
-            occurences_values = self.last_strike_analysis.values()
-
-            # We consider that the most frequent values are those with occurences in the superior half
-            frequent_values = [dice_val for dice_val in self.last_strike_analysis.keys()
-                            if self.last_strike_analysis[dice_val] in range(max(occurences_values) // 2, max(occurences_values) + 1)]
-            
-            occurences_frequent = [self.last_strike_analysis[dice_val]for dice_val in self.last_strike_analysis.keys() if self.last_strike_analysis[dice_val]
-                                in range(max(occurences_values) // 2, max(occurences_values) + 1)]
-            
-
-            if debug:
-                print("Most frequent values in the last computer roll :", frequent_values)
-                print("Chances to redo frequent values :", chances_dices_values(frequent_values, occurences_frequent, 5 - len(frequent_values)))
-            # Get possible sets for the most frequent values
-            potential_sets = []
-            filtered_sets = []
-            for dice_val in frequent_values:
-                potential_sets.extend(sets_for_value(dice_val))
-
-            
-
-            # Filter sets to make them appear only one time in the list
-            for dice_set in potential_sets:
-                if (potential_sets.count(dice_set) ==1) and (dice_set in self.possible_sets and dice_set in self.remaining_sets):
-                    filtered_sets.append(dice_set)
-
-            if debug:
-                print("Potential sets for the most frequent values :", filtered_sets)
-
+        #print("Set with max potential score :", set)
+        if valid_sets:
             score_summary = summarize_potential_scores(self.last_dice_roll)
+            # Select the set with the highest potential score
+            best_set = max(valid_sets, key=lambda s: score_summary[s])
+            print("Set with best score :", best_set)
+            score = score_summary[best_set]
+            return (best_set, score)
 
-            set, score = get_max_potential_score_set(self.last_dice_roll)
-            #print("Set with max potential score :", set)
-            valid_sets = [dice_set for dice_set in self.possible_sets if dice_set in self.remaining_sets]
-            if valid_sets:
-                # Select the set with the highest potential score
-                best_set = max(valid_sets, key=lambda s: score_summary[s])
-                score = score_summary[best_set]
-                strike = best_set
+        else:
+            return ("IGNORE", 0)    
 
-            else:
-                # Fallback : ignore a set
-                self.has_ignored = True    
-
-
-            strike = set
-            return (strike, score)
 
 
 
